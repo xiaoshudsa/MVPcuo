@@ -14,32 +14,20 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TestModel implements IContractModel {
-
+    NetManger mManger = NetManger.getInstance();
     @Override
     public void getData(final IContractPresenter iContractPresenter, final int whichApi, Object[] parms) {
-        final int loadType = (int) parms[0];
-        Map parm = (Map) parms[1];
-        int pageid = (int) parms[2];
-        Retrofit build = new Retrofit.Builder()
-                .baseUrl("http://static.owspace.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(new OkHttpClient())
-                .build();
-        build.create(IService.class)
-                .getTestData(parm,pageid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Databean>() {
-                    @Override
-                    public void accept(Databean databean) throws Exception {
-                    iContractPresenter.onData(whichApi,loadType,databean);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        iContractPresenter.error(whichApi,throwable);
-                    }
-                });
+
+        switch (whichApi) {
+            case ApiConfig.TEST_GET:
+                final int loadType = (int) parms[0];
+                Map param = (Map) parms[1];
+                int pageId = (int) parms[2];
+                mManger.netWork(mManger.getService().getTestData(param, pageId), iContractPresenter, whichApi, loadType);
+                break;
+            case ApiConfig.ADVERT:
+
+                break;
+        }
     }
 }

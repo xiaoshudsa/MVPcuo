@@ -1,0 +1,52 @@
+package com.zxp.mvpcuoqv.base;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import com.zxp.frame.ContractPersenter;
+import com.zxp.frame.IContractModel;
+import com.zxp.frame.IContractView;
+
+
+
+public abstract class BaseMvpActivity<M extends IContractModel>extends BaseActivity implements IContractView {
+
+    private M setModel;
+    public ContractPersenter contractPersenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setModel = setModel();
+        contractPersenter = new ContractPersenter(this,setModel);
+        setUpView();
+        setUpData();
+    }
+    public abstract M setModel();
+    public abstract void setUpView();
+    public abstract void setUpData();
+    public abstract void netSuccess(int whichApi, int loadType, Object[] pa);
+    public void neterror(int which, Throwable throwable){
+
+    }
+    @Override
+    public void onData(int whichApi, int loadType, Object[] pa) {
+                netSuccess(whichApi,loadType,pa);
+    }
+
+    @Override
+    public void error(int which, Throwable throwable) {
+        Log.i(which+"错误",throwable != null && !TextUtils.isEmpty(throwable.getMessage()) ? throwable.getMessage() : "不明");
+        neterror(which,throwable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        contractPersenter.clear();
+    }
+}

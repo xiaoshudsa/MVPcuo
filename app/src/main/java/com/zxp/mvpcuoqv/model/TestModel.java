@@ -1,4 +1,9 @@
-package com.zxp.frame;
+package com.zxp.mvpcuoqv.model;
+
+import com.zxp.frame.ApiConfig;
+import com.zxp.frame.IContractModel;
+import com.zxp.frame.IContractPresenter;
+import com.zxp.frame.NetManger;
 
 import java.util.Map;
 

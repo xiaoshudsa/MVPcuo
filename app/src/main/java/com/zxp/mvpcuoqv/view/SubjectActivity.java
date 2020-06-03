@@ -11,7 +11,7 @@ import com.zxp.data.BaseInfo;
 import com.zxp.data.SpecialtyChooseEntity;
 import com.zxp.frame.ApiConfig;
 import com.zxp.frame.FrameApplication;
-import com.zxp.frame.LauchModel;
+import com.zxp.mvpcuoqv.model.LauchModel;
 import com.zxp.frame.constants.ConstantKey;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.adapter.SubjectAdapter;

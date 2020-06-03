@@ -2,26 +2,30 @@ package com.zxp.mvpcuoqv.view;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.yiyatech.utils.newAdd.GlideUtil;
 import com.yiyatech.utils.newAdd.SharedPrefrenceUtils;
 import com.zxp.data.BaseInfo;
+import com.zxp.data.LoginInfo;
 import com.zxp.data.MainAdEntity;
 import com.zxp.data.SpecialtyChooseEntity;
 import com.zxp.frame.ApiConfig;
 import com.zxp.frame.FrameApplication;
 import com.zxp.frame.IContractModel;
-import com.zxp.frame.LauchModel;
+import com.zxp.mvpcuoqv.Application1907;
+import com.zxp.mvpcuoqv.model.LauchModel;
 import com.zxp.frame.constants.ConstantKey;
 import com.zxp.frame.util.SystemUtils;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.base.BaseSplashActivity;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
+
 
 import butterknife.OnClick;
 import io.reactivex.Observable;
@@ -57,6 +61,16 @@ public class SplashActivity extends BaseSplashActivity {
         }
         Point realSize = SystemUtils.getRealSize(this);
         contractPersenter.getData(ApiConfig.ADVERT,specialtyId,realSize.x,realSize.y);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mSelectedInfo==null){
+                    jump();
+                }
+            }
+        },3000);
+        LoginInfo loginInfo = SharedPrefrenceUtils.getObject(this, ConstantKey.LOGIN_INFO);
+        if (loginInfo!=null&&!TextUtils.isEmpty(loginInfo.getUid()))mApplication1907.setmLoginInfo(loginInfo);
     }
 
     @Override

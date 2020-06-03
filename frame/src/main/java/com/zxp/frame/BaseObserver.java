@@ -16,7 +16,6 @@ public abstract class BaseObserver implements Observer {
 
     @Override
     public void onNext(Object o) {
-
         onSuccess(o);
         dispose();
     }

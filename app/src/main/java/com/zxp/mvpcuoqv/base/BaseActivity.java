@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zxp.frame.ApiConfig;
 import com.zxp.frame.LoadTypeConfig;
+import com.zxp.mvpcuoqv.Application1907;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
 
 import butterknife.ButterKnife;
@@ -20,9 +21,12 @@ import okio.Buffer;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    public Application1907 mApplication1907;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApplication1907 = new Application1907();
         setContentView(getlayout());
         ButterKnife.bind(this);
     }
@@ -46,7 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int getlayout();
 
     public void showToast(Object content){
-        Toast.makeText(getApplicationContext(), content.toString(), Toast.LENGTH_SHORT).show();
+        if (content!=null) {
+            Toast.makeText(getApplicationContext(), content.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

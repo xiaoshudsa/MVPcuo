@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.yiyatech.utils.NetworkUtils;
 import com.zxp.data.Device;
+import com.zxp.frame.FrameApplication;
 import com.zxp.frame.util.SystemUtils;
 import com.zxp.mvpcuoqv.R;
 
@@ -36,7 +37,7 @@ public abstract class BaseSplashActivity extends BaseMvpActivity {
         device.setVersion(SystemUtils.getVersion(this));
         device.setDeviceId(SystemUtils.getDeviceId(this));
         device.setLocalIp(NetworkUtils.getLocalIpAddress());
-        getFrameApplication().setmDeviceInfo(device);
+       FrameApplication.getFrameApplication().setmDeviceInfo(device);
     }
 
 

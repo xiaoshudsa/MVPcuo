@@ -1,7 +1,12 @@
 package com.zxp.frame;
 
+import com.zxp.data.BaseInfo;
 import com.zxp.data.Databean;
+import com.zxp.data.MainAdEntity;
+import com.zxp.data.SpecialtyChooseEntity;
 
+
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -15,4 +20,9 @@ import retrofit2.http.QueryMap;
 public interface IService {
     @GET(".")
     Observable<Databean> getTestData(@QueryMap Map<String, Object> params, @Query("page_id") int pageId);
+    @GET("ad/getAd")
+    Observable<BaseInfo<MainAdEntity>> getAdvert(@QueryMap Map<String,Object> pMap);
+
+    @GET("lesson/getAllspecialty")
+    Observable<BaseInfo<List<SpecialtyChooseEntity>>> getSubjectList();
 }

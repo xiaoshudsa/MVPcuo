@@ -1,20 +1,19 @@
-package com.zxp.mvpcuoqv;
+package com.zxp.mvpcuoqv.view;
 
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zxp.data.Databean;
 import com.zxp.frame.ApiConfig;
+import com.zxp.frame.BaseObserver;
 import com.zxp.frame.IContractModel;
 import com.zxp.frame.IContractView;
 import com.zxp.frame.LoadTypeConfig;
-import com.zxp.frame.PrameHashMap;
 import com.zxp.frame.TestModel;
+import com.zxp.frame.util.PrameHashMap;
+import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.adapter.TestAdapter;
 import com.zxp.mvpcuoqv.base.BaseMvpActivity;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
@@ -78,17 +77,12 @@ public class MainActivity extends BaseMvpActivity implements IContractView {
     }
 
     @Override
-    public void netSuccess(int whichApi, int loadType, Object[] pa) {
-
-    }
-
-    @Override
-    public void onData(int whichApi, int loadType, Object[] pa) {
+    public void netSuccess(int whichApi, Object[] pa) {
         switch (whichApi) {
             case ApiConfig.TEST_GET:
-                if (loadType == LoadTypeConfig.MORE) {
+                if ((int)pa[0] == LoadTypeConfig.MORE) {
                     RefreshLayout.finishLoadMore();
-                } else if (loadType == LoadTypeConfig.REFRESH) {
+                } else if ((int)pa[0] == LoadTypeConfig.REFRESH) {
                     RefreshLayout.finishRefresh();
                     testAdapter.clear();
                 }
@@ -98,6 +92,11 @@ public class MainActivity extends BaseMvpActivity implements IContractView {
         }
     }
 
+
+    @Override
+    public void onData(int whichApi, Object[] pa) {
+
+    }
 
     @Override
     public void error(int which, Throwable throwable) {

@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zxp.frame" />
+    package="com.zxp.frame" >
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+</manifest>

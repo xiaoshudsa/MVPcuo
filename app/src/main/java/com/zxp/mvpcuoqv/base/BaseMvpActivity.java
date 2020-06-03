@@ -29,13 +29,13 @@ public abstract class BaseMvpActivity<M extends IContractModel>extends BaseActiv
     public abstract M setModel();
     public abstract void setUpView();
     public abstract void setUpData();
-    public abstract void netSuccess(int whichApi, int loadType, Object[] pa);
+    public abstract void netSuccess(int whichApi,Object[] pa);
     public void neterror(int which, Throwable throwable){
 
     }
     @Override
-    public void onData(int whichApi, int loadType, Object[] pa) {
-                netSuccess(whichApi,loadType,pa);
+    public void onData(int whichApi, Object[] pa) {
+                netSuccess(whichApi,pa);
     }
 
     @Override

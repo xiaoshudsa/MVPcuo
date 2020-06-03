@@ -1,4 +1,4 @@
-package com.zxp.frame;
+package com.zxp.frame.util;
 
 import java.util.HashMap;
 

@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/left_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,8 +18,8 @@
         android:id="@+id/title_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textSize="@dimen/sp_16"
         app:layout_constraintLeft_toRightOf="@+id/left_image"
         app:layout_constraintTop_toTopOf="@+id/left_image" />
 
@@ -27,13 +27,13 @@
         android:id="@+id/desc_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="@dimen/sp_16"
         app:layout_constraintBottom_toBottomOf="@+id/left_image"
         app:layout_constraintLeft_toLeftOf="@+id/title_content" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/dp_0_1"
         app:layout_constraintTop_toBottomOf="@+id/left_image"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:background="@color/colorAccent"/>
 </LinearLayout>

@@ -1,18 +1,22 @@
 package com.zxp.frame;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetManger {
-    public NetManger() {
+    private NetManger() {
     }
-    public static volatile NetManger sNetManger;
+    private static volatile NetManger sNetManger;
 
     public static NetManger getInstance(){
         if (sNetManger==null){
@@ -34,11 +38,25 @@ public <T> IService getService(T... t){
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
 //                .client(NetInterceptor.getNetInterceptor().getClientWithoutCache())
-            .client(new OkHttpClient())
+            .client(initClient())
             .build()
             .create(IService.class);
 }
-    public <T, O> void netWork(Observable<T> localTestInfo, final IContractPresenter pPresenter, final int whichApi, final int dataType, final O... o) {
+    private OkHttpClient initClient(){
+        return new OkHttpClient().newBuilder()
+                .addInterceptor(new CommonHeadersInterceptor())
+                .addInterceptor(new CommonParamsInterceptor())
+                .addNetworkInterceptor(initLogInterceptor())
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15,TimeUnit.SECONDS)
+                .build();
+    }
+    private Interceptor initLogInterceptor(){
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return httpLoggingInterceptor;
+    }
+    public <T, O> void netWork(Observable<T> localTestInfo, final IContractPresenter pPresenter, final int whichApi, final O... o) {
         localTestInfo.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {
@@ -48,7 +66,7 @@ public <T> IService getService(T... t){
                                }
                                @Override
                     public void onSuccess(Object value) {
-                        pPresenter.onData(whichApi, dataType, value, o);
+                        pPresenter.onData(whichApi, value, o);
                     }
 
                     @Override

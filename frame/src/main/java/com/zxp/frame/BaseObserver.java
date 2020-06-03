@@ -1,6 +1,9 @@
 package com.zxp.frame;
 
-import io.reactivex.Observable;
+
+
+import com.zxp.data.BaseInfo;
+import com.zxp.data.MainAdEntity;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -13,6 +16,7 @@ public abstract class BaseObserver implements Observer {
 
     @Override
     public void onNext(Object o) {
+
         onSuccess(o);
         dispose();
     }
@@ -36,5 +40,7 @@ public abstract class BaseObserver implements Observer {
             mdisposable.dispose();
         }
     }
+
+
 
 }

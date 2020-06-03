@@ -1,6 +1,7 @@
 package com.zxp.frame;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class ContractPersenter<V extends IContractView,M extends IContractModel>
     public ContractPersenter(V pView,M pModel) {
         this.mView = new SoftReference<>(pView);
         testModel = new SoftReference<>(pModel);
+        mDisposableList=new ArrayList<>();
     }
 
     @Override
@@ -22,8 +24,8 @@ public class ContractPersenter<V extends IContractView,M extends IContractModel>
     }
 
     @Override
-    public void onData(int whichApi, int loadType, Object... pa) {
-        if (mView != null && mView.get() != null)mView.get().onData(whichApi,loadType,pa);
+    public void onData(int whichApi, Object[] pa) {
+        if (mView != null && mView.get() != null)mView.get().onData(whichApi,pa);
     }
 
     @Override

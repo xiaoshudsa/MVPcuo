@@ -1,15 +1,14 @@
 apply plugin: 'com.android.library'
-
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion  rootProject.ext.buildToolsVersion
 
 
     defaultConfig {
-        minSdkVersion 22
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.VersionCode
+        versionName rootProject.ext.VersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -27,23 +26,25 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    api 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    api project(path: ':utils')
+    api "junit:junit:$junit"
 
+    androidTestImplementation "androidx.test.ext:junit:$junitth"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+    api "androidx.recyclerview:recyclerview:$androidXRecyclerView"
 //加载图片的依赖包
-    api 'com.github.bumptech.glide:glide:4.8.0'
-
+    api "com.github.bumptech.glide:glide:$glide"
+    api "com.squareup.okhttp3:okhttp:$okhttp3"
+    api "com.squareup.okhttp3:logging-interceptor:$ok3log"
 //下拉刷新和加载更多依赖包
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
-
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'//转换器，请求结果转换成Model
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//配合Rxjava 使用
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api "com.scwang.smartrefresh:SmartRefreshLayout:$smartRefresh"
+    api "com.scwang.smartrefresh:SmartRefreshHeader:$smartRefresh"
+    api "com.squareup.retrofit2:retrofit:$retrofit2"
+    api "com.squareup.retrofit2:converter-gson:$retrofit2"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2"
+    api "io.reactivex.rxjava2:rxjava:$rxjava2"
+    api "io.reactivex.rxjava2:rxandroid:$rxjava2"
     api project(path: ':data')
 
 }

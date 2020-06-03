@@ -15,13 +15,16 @@ import com.zxp.frame.ApiConfig;
 import com.zxp.frame.LoadTypeConfig;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
 
+import butterknife.ButterKnife;
+import okio.Buffer;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getlayout());
-
+        ButterKnife.bind(this);
     }
     public void  initRecyclerView(RecyclerView pRectRecyclerView, SmartRefreshLayout pRefreshLayout, final DataInterfaces pdataInterfaces){
         if (pRectRecyclerView!=null)pRectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
     protected abstract int getlayout();
+
     public void showToast(Object content){
         Toast.makeText(getApplicationContext(), content.toString(), Toast.LENGTH_SHORT).show();
     }

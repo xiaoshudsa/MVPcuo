@@ -2,11 +2,15 @@ package com.zxp.mvpcuoqv.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,7 +45,7 @@ public class LoginView extends RelativeLayout {
     @BindView(R.id.account_secrete)
     EditText accountSecrete;
     @BindView(R.id.account_module)
-    LinearLayout accountModule;
+    ConstraintLayout accountModule;
     @BindView(R.id.area_code)
     TextView areaCode;
     @BindView(R.id.verify_name)
@@ -54,8 +58,12 @@ public class LoginView extends RelativeLayout {
     TextView loginPress;
     @BindView(R.id.verify_area)
     ConstraintLayout verifyView;
+    @BindView(R.id.delete_account_name)
+    ImageView deleteIcon;
+    @BindView(R.id.is_visible)
+    ImageView isPwdVisible;
     private Context mContext;
-    public static final int ACCOUNT_TYPE = 1, VERIFY_TYPE = 2;
+    public final int ACCOUNT_TYPE = 1, VERIFY_TYPE = 2;
     public int mCurrentLoginType = ACCOUNT_TYPE;
     private final boolean mIsMoreType;
 
@@ -68,18 +76,29 @@ public class LoginView extends RelativeLayout {
         mIsMoreType = ta.getBoolean(R.styleable.LoginView_isMoreType, true);
         initView();
         if (!mIsMoreType){
-            findViewById(R.id.more_type_group).setVisibility(GONE);
+            verifyPoint.setVisibility(GONE);
+            accountPoint.setVisibility(GONE);
+            verifyLogin.setVisibility(GONE);
+            accountLogin.setVisibility(GONE);
         }
+        ta.recycle();
     }
 
     private void initView() {
         loginPress.setEnabled(false);
+        accountName.addTextChangedListener(new MyTextWatcher() {
+            @Override
+            public void onMyTextChanged(CharSequence s, int start, int before, int count) {
+                deleteIcon.setVisibility(s.length() == 0 ? INVISIBLE : VISIBLE);
+            }
+        });
         accountSecrete.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onMyTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 5 && !TextUtils.isEmpty(accountName.getText().toString().trim())) {
                     loginPress.setEnabled(true);
-                }
+                } else loginPress.setEnabled(false);
+                isPwdVisible.setVisibility(s.length() > 0 ? VISIBLE : INVISIBLE);
             }
         });
         verifyCode.addTextChangedListener(new MyTextWatcher() {
@@ -87,31 +106,43 @@ public class LoginView extends RelativeLayout {
             public void onMyTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 3 && RegexUtil.isPhone(verifyName.getText().toString().trim()))
                     loginPress.setEnabled(true);
+                else loginPress.setEnabled(false);
             }
         });
     }
 
-    @OnClick({R.id.account_login, R.id.verify_login, R.id.get_verify_code, R.id.login_press})
+    @OnClick({R.id.account_login, R.id.verify_login, R.id.get_verify_code, R.id.login_press,R.id.delete_account_name,R.id.is_visible})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.is_visible:
+                accountSecrete.setTransformationMethod(isPwdVisible.isSelected() ? PasswordTransformationMethod.getInstance() : HideReturnsTransformationMethod.getInstance());
+                isPwdVisible.setSelected(!isPwdVisible.isSelected());
+                break;
+            case R.id.delete_account_name:
+                accountName.setText("");
+                break;
             case R.id.account_login:
-                accountLogin.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                accountPoint.setVisibility(VISIBLE);
-                verifyLogin.setTextColor(ContextCompat.getColor(mContext, R.color.dark_gray));
-                verifyPoint.setVisibility(INVISIBLE);
-                accountModule.setVisibility(VISIBLE);
-                verifyView.setVisibility(INVISIBLE);
-                mCurrentLoginType = ACCOUNT_TYPE;
+                if (mCurrentLoginType != ACCOUNT_TYPE){
+                    accountLogin.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                    accountPoint.setVisibility(VISIBLE);
+                    verifyLogin.setTextColor(ContextCompat.getColor(mContext, R.color.dark_gray));
+                    verifyPoint.setVisibility(INVISIBLE);
+                    accountModule.setVisibility(VISIBLE);
+                    verifyView.setVisibility(INVISIBLE);
+                    mCurrentLoginType = ACCOUNT_TYPE;
+                }
                 break;
             case R.id.verify_login:
-                accountLogin.setTextColor(ContextCompat.getColor(mContext, R.color.dark_gray));
-                accountPoint.setVisibility(INVISIBLE);
-                verifyLogin.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                verifyPoint.setVisibility(VISIBLE);
-                verifyPoint.setBackgroundColor(ContextCompat.getColor(mContext,R.color.red));
-                accountModule.setVisibility(INVISIBLE);
-                verifyView.setVisibility(VISIBLE);
-                mCurrentLoginType = VERIFY_TYPE;
+                if (mCurrentLoginType != VERIFY_TYPE){
+                    accountLogin.setTextColor(ContextCompat.getColor(mContext, R.color.dark_gray));
+                    accountPoint.setVisibility(INVISIBLE);
+                    verifyLogin.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                    verifyPoint.setVisibility(VISIBLE);
+                    accountModule.setVisibility(INVISIBLE);
+                    verifyView.setVisibility(VISIBLE);
+                    verifyPoint.setBackgroundColor(ContextCompat.getColor(mContext,R.color.red));
+                    mCurrentLoginType = VERIFY_TYPE;
+                }
                 break;
             case R.id.get_verify_code:
                 if (TextUtils.isEmpty(verifyName.getText().toString())) {

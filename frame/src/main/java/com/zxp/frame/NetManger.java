@@ -17,24 +17,22 @@ public class NetManger {
     private NetManger() {
     }
     private static volatile NetManger sNetManger;
-
+    private static IService  service;
     public static NetManger getInstance(){
         if (sNetManger==null){
             synchronized (NetManger.class){
                 if (sNetManger==null){
                     sNetManger=new NetManger();
+                    service=getService();
                 }
             }
         }
         return sNetManger;
     }
-public <T> IService getService(T... t){
-    String baseUrl = ServerAddressConfig.BASE_URL;
-    if (t!=null&&t.length!=0){
-        baseUrl=(String)t[0];
-    }
+public static IService getService(){
+
     return new Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(FrameApplication.getFrameApplicationContext().getString(com.zxp.frame.R.string.ad_openapi))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
 //                .client(NetInterceptor.getNetInterceptor().getClientWithoutCache())
@@ -42,7 +40,22 @@ public <T> IService getService(T... t){
             .build()
             .create(IService.class);
 }
-    private OkHttpClient initClient(){
+/*
+    public <T> IService getService(T... t){
+        String baseUrl = ServerAddressConfig.BASE_URL;
+        if (t!=null&&t.length!=0){
+            baseUrl=(String)t[0];
+        }
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+//                .client(NetInterceptor.getNetInterceptor().getClientWithoutCache())
+                .client(initClient())
+                .build()
+                .create(IService.class);
+    }*/
+    private static OkHttpClient initClient(){
         return new OkHttpClient().newBuilder()
                 .addInterceptor(new CommonHeadersInterceptor())
                 .addInterceptor(new CommonParamsInterceptor())
@@ -51,7 +64,7 @@ public <T> IService getService(T... t){
                 .readTimeout(15,TimeUnit.SECONDS)
                 .build();
     }
-    private Interceptor initLogInterceptor(){
+    private static Interceptor initLogInterceptor(){
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;

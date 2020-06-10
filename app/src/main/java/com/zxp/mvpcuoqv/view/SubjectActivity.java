@@ -1,5 +1,6 @@
 package com.zxp.mvpcuoqv.view;
 
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.zxp.data.BaseInfo;
 import com.zxp.data.SpecialtyChooseEntity;
 import com.zxp.frame.ApiConfig;
 import com.zxp.frame.FrameApplication;
+import com.zxp.mvpcuoqv.Application1907;
 import com.zxp.mvpcuoqv.model.LauchModel;
 import com.zxp.frame.constants.ConstantKey;
 import com.zxp.mvpcuoqv.R;
@@ -22,6 +24,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.zxp.mvpcuoqv.constants.JumpConstant.JUMP_KEY;
+import static com.zxp.mvpcuoqv.constants.JumpConstant.SPLASH_TO_SUB;
+import static com.zxp.mvpcuoqv.constants.JumpConstant.SUB_TO_LOGIN;
 
 public class SubjectActivity extends BaseMvpActivity<LauchModel> {
     private List<SpecialtyChooseEntity> mListData = new ArrayList<>();
@@ -37,6 +43,7 @@ public class SubjectActivity extends BaseMvpActivity<LauchModel> {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private SubjectAdapter mAdapter;
+    private String mFrom;
     @Override
     protected int getlayout() {
         return R.layout.activity_subject;
@@ -49,10 +56,26 @@ public class SubjectActivity extends BaseMvpActivity<LauchModel> {
 
     @Override
     public void setUpView() {
+        mFrom = getIntent().getStringExtra(JUMP_KEY);
         titleContent.setText(getString(R.string.select_subject));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new SubjectAdapter(mListData, this);
         recyclerView.setAdapter(mAdapter);
+        moreContent.setText("完成");
+        moreContent.setOnClickListener(v->{
+            if (Application1907.getSelectedInfo() == null){
+                showToast("请选择专业");
+                return;
+            }
+            if (mFrom.equals(SPLASH_TO_SUB)){
+                if (Application1907.isLogin()){
+                    startActivity(new Intent(SubjectActivity.this,HomeActivity.class));
+                } else {
+                    startActivity(new Intent(SubjectActivity.this,LoginActivity.class).putExtra(JUMP_KEY,SUB_TO_LOGIN));
+                }
+            }
+            finish();
+        });
     }
 
     @Override

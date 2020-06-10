@@ -2,6 +2,8 @@ package com.zxp.mvpcuoqv.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.yiyatech.utils.newAdd.SharedPrefrenceUtils;
@@ -24,12 +26,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.zxp.mvpcuoqv.constants.JumpConstant.JUMP_KEY;
+import static com.zxp.mvpcuoqv.constants.JumpConstant.SPLASH_TO_LOGIN;
+import static com.zxp.mvpcuoqv.constants.JumpConstant.SUB_TO_LOGIN;
+
 public class LoginActivity extends BaseMvpActivity<AccountModel> implements LoginView.LoginViewCallBack{
 
     private Disposable mSubscribe;
     @BindView(R.id.login_view)
     LoginView loginView;
     private String phoneNum;
+    private String mFromType;
     @Override
     protected int getlayout() {
         return R.layout.activity_login;
@@ -42,6 +49,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
 
     @Override
     public void setUpView() {
+        mFromType = getIntent().getStringExtra(JUMP_KEY);
         loginView.setLoginViewCallBack(this);
     }
 
@@ -55,15 +63,19 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
         switch (whichApi){
             case ApiConfig.SEND_VERIFY:
                 BaseInfo<String> stringBaseInfo = (BaseInfo<String>) pa[0];
-                showToast(stringBaseInfo.result);
-                goTime();
+                if (stringBaseInfo.isSuccess()) {
+                    showToast(stringBaseInfo.result);
+                    goTime();
+                }else showToast("验证码发送太频繁，请稍后重试");
                 break;
                 case ApiConfig.VERIFY_LOGIN:
                     BaseInfo<LoginInfo> loginInfoBaseInfo = (BaseInfo<LoginInfo>) pa[0];
+                    Log.i("Tag",loginInfoBaseInfo.errNo+"");
                     LoginInfo result = loginInfoBaseInfo.result;
                     result.login_name=phoneNum;
                     mApplication1907.setmLoginInfo(result);
                     contractPersenter.getData(ApiConfig.GET_HEADER_INFO);
+                    break;
                     case ApiConfig.GET_HEADER_INFO:
                         PersonHeader personHeader = ((BaseInfo<PersonHeader>) pa[0]).result;
                         mApplication1907.getLoginInfo().personHeader = personHeader;
@@ -73,8 +85,9 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
         }
     }
     private void jump() {
+        if (mFromType.equals(SPLASH_TO_LOGIN)||mFromType.equals(SUB_TO_LOGIN))
         startActivity(new Intent(this,HomeActivity.class));
-        this.finish();
+        finish();
     }
     private long time = 60l;
     private void goTime() {
@@ -92,6 +105,9 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
+                if (!TextUtils.isEmpty(mFromType)&&(mFromType.equals(SUB_TO_LOGIN)||mFromType.equals(SPLASH_TO_LOGIN))){
+                    startActivity(new Intent(this,HomeActivity.class));
+                }
                 finish();
                 break;
             case R.id.register_press:
@@ -113,6 +129,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
     @Override
     public void loginPress(int type, String userName, String pwd) {
         doPre();
+        Log.i("Tag",userName+pwd);
         if (loginView.mCurrentLoginType == loginView.VERIFY_TYPE)
             contractPersenter.getData(ApiConfig.VERIFY_LOGIN, userName, pwd);
     }

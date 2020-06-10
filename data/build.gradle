@@ -31,5 +31,6 @@ dependencies {
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$junitth"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+    api "com.google.code.gson:gson:$gson"
 
 }

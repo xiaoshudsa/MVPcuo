@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/ll_title"
+
+        >
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_15"
+            android:id="@+id/red_line"
+            android:background="@color/color_red_bg"
+            android:layout_marginLeft="@dimen/dp_13"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+
+            android:text="直播专区"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部直播"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/rightcorner"
+            android:id="@+id/textlive"
+            />
+    </RelativeLayout>
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rect_v"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/ll_title"
+    android:layout_marginTop="@dimen/dp_10"
+
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>

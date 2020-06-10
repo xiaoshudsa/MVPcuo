@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxp.data.SpecialtyChooseEntity;
 import com.zxp.frame.FrameApplication;
+import com.zxp.mvpcuoqv.Application1907;
 import com.zxp.mvpcuoqv.R;
 
 import java.util.List;

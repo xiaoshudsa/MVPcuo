@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zxp.frame.ContractPersenter;
@@ -16,11 +17,10 @@ public abstract class BaseMvpActivity<M extends IContractModel>extends BaseActiv
 
     private M setModel;
     public ContractPersenter contractPersenter;
-
+    @NonNull
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setModel = setModel();
         contractPersenter = new ContractPersenter(this,setModel);
         setUpView();

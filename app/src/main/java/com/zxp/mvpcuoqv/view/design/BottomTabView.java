@@ -47,7 +47,7 @@ public class BottomTabView extends RelativeLayout {
     private List<Integer> normalIcon;//为选中的icon
     private List<Integer> selectedIcon;// 选中的icon
     private List<String> tabContent;//tab对应的内容
-    private int defaultTab;//默认显示第几个tab
+    public int defaultTab;//默认显示第几个tab
     private  @ColorInt int mSelectedColor;
     private  @ColorInt int mUnSelectedColor;
 
@@ -71,7 +71,10 @@ public class BottomTabView extends RelativeLayout {
         }
         ta.recycle();
     }
-
+    public void changeSelected(int pos){
+        defaultTab=pos;
+        setStyle();
+    }
     public void setResource(List<Integer> normalIcon,List<Integer> selectedIcon,List<String> tabContent){
         if (defaultTab<=0){
             Log.e(this.getClass().getSimpleName(), "setResource: "+"0个tab，你玩lz呢" );
@@ -91,7 +94,7 @@ public class BottomTabView extends RelativeLayout {
         }
     }
 
-    private void setStyle() {
+    public void setStyle() {
         for (int i = 0;i<usedTabView.size();i++){
             if (i == defaultTab-1){
                 usedTabView.get(i).setTextColor(mSelectedColor);

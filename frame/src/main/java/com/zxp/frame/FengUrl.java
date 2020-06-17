@@ -15,7 +15,16 @@ public class FengUrl {
     public static final String GETGROUPLIST = "group/getGroupList";
     public static final String REMOVEGROUP = "removeGroup";
     public static final String JOINGROUP = "joingroup";
-
+    public static final String CHECKMOBILECODE = "checkMobileCode";
+    public static final String CHECKMOBILEISUSE = "checkMobileIsUse";
+    public static final String SENDMOBILECODE = "sendMobileCode";
+    public static final String USERNAMEISEXIST = "user/usernameIsExist";
+    public static final String USERREGFORSIMPLE = "userRegForSimple";
+    public static final String USERLOGINNEWAUTH = "user/userLoginNewAuth";
+    public static final String ACCESS_TOKEN = "access_token";
+    public static final String THIRDLOGIN = "thirdlogin";
+    public static final String NEWTHIRDBIND = "newThirdbind";
+    public static final String GETGROUPTHREADLIST = "group/getGroupThreadList";
     /**
      * 静态代码块，优先于对象的创建而执行，且只执行一次
      */

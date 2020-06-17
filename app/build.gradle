@@ -1,5 +1,51 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+MobSDK {
+    appKey "2fac1dc32bb74"
+    appSecret "f7aef4a0dfd9565adc64a8b806e18695"
 
+    ShareSDK {
+        devInfo {
+            version "3.6.8"
+
+            QZone {
+                id 3
+                sortId 3
+                appId "1105712307"
+                appKey "JrFqzftdwJeUq9fj"
+                shareByAppClient true
+                enable true
+            }
+
+            Wechat {
+                id 4
+                sortId 4
+                appId "wx4b6c402fee6860c8"
+                appKey "1278977f2848ee16708c656f66abf35a"
+                shareByAppClient true
+                enable true
+            }
+
+            WechatMoments {
+                id 5
+                sortId 5
+                appId "wx4b6c402fee6860c8"
+                appKey "1278977f2848ee16708c656f66abf35a"
+                shareByAppClient true
+                enable true
+            }
+
+            QQ {
+                id 6
+                sortId 6
+                appId "1105712307"
+                appKey "JrFqzftdwJeUq9fj"
+                shareByAppClient true
+                enable true
+            }
+        }
+    }
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion  rootProject.ext.buildToolsVersion
@@ -8,17 +54,36 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
-        applicationId "com.zxp.mvpcuoqv"
+  //    applicationId "com.zxp.mvpcuoqv"
+        applicationId "com.zhulong.eduvideo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.VersionCode
         versionName rootProject.ext.VersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    //    注意：一定要放到buildTypes的上边
+    signingConfigs {
+        release {
+            storeFile file(storeFileName)
+            storePassword storepwd
+            keyAlias alias
+            keyPassword keypwd
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -28,6 +93,8 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    implementation project(path: ':basepop')
+    implementation files('libs\\libammsdk.jar')
     testImplementation "junit:junit:$junit"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation "androidx.test.ext:junit:$junitth"
@@ -39,6 +106,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$tablayout"
+    implementation 'com.github.dfqin:grantor:2.5'
     api project(path: ':frame')
 
 

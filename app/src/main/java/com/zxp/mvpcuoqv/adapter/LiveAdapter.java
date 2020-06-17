@@ -40,8 +40,8 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.ViewHolde> {
         BannerLiveInfo.Live live = mliveData.get(position);
         holder.mTextView.setText(live.activityName);
         holder.mTime.setText(live.startTime);
-        RequestOptions requestOptions = new RequestOptions().centerInside();
-        Glide.with(mContext).load(live.coverImgUrl).apply(requestOptions).into(holder.mImageView);
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
+        Glide.with(mContext).load(live.teacher_photo).apply(requestOptions).into(holder.mImageView);
     }
 
     @Override

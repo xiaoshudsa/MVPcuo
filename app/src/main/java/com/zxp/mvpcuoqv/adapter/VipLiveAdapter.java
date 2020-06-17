@@ -1,5 +1,6 @@
 package com.zxp.mvpcuoqv.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+
 import com.bumptech.glide.request.RequestOptions;
-import com.zxp.data.BannerLiveInfo;
 import com.zxp.data.VipLiveBean;
 import com.zxp.mvpcuoqv.R;
 
@@ -40,7 +42,7 @@ public class VipLiveAdapter extends RecyclerView.Adapter<VipLiveAdapter.ViewHold
         VipLiveBean.LiveBeanX.LiveBean liveBean = mLiveBeans.get(position);
         holder.mTextView.setText(liveBean.getActivityName());
         holder.mTime.setText(liveBean.getStart_date());
-        RequestOptions requestOptions = new RequestOptions().centerInside();
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(mContext).load(liveBean.getCoverImgUrl()).apply(requestOptions).into(holder.mImageView);
     }
 

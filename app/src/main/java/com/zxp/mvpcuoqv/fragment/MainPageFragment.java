@@ -53,7 +53,7 @@ public class MainPageFragment extends BaseMvpFragment<MainPageModel> implements 
     @Override
     public void setUpView() {
         initRecyclerView(rectShi, srcAtop, this);
-        mAdapter = new HomeAdapter(bottomList, bannerData, liveData, getContext());
+        mAdapter = new HomeAdapter(bottomList, bannerData, getContext());
         rectShi.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         rectShi.setAdapter(mAdapter);
     }
@@ -94,9 +94,7 @@ public class MainPageFragment extends BaseMvpFragment<MainPageModel> implements 
                     if (object.getString("errNo").equals("0")) {
                      int load = (int) ((Object[]) pD[1])[0];
                     /*    int load = (int)pD[1];*/
-                        if (load == LoadTypeConfig.REFRESH) {
-                            bannerData.clear();liveData.clear();
-                        }
+
                         String result = object.getString("result");
                         JSONObject resultObject = new JSONObject(result);
                         String live = resultObject.getString("live");
@@ -107,10 +105,19 @@ public class MainPageFragment extends BaseMvpFragment<MainPageModel> implements 
                         result = resultObject.toString();
                         Gson gson = new Gson();
                         BannerLiveInfo info = gson.fromJson(result, BannerLiveInfo.class);
+                        if (load == LoadTypeConfig.REFRESH) {
+                            if(bannerData!=null) {
+                                bannerData.clear();
+                            }
+                            if (info.live!=null){
+                                mAdapter.clearLiveData(info.live);
+                            }
+                        }
                         for (BannerLiveInfo.Carousel data : info.Carousel) {
                             bannerData.add(data.thumb);
                         }
-                        liveData = info.live;
+
+                        if(info.live != null ) mAdapter.clearLiveData(info.live);
                         banLive = true;
                         if (mainList) {
                             mAdapter.notifyDataSetChanged();

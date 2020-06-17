@@ -42,6 +42,7 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
    int  layoutId;
     @Override
     public int getItemViewType(int position) {
+        int type;
         if (position==0){
             type= BANNER;
         }else if (position==1){
@@ -51,11 +52,11 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
         }
         return type;
     }
-    int type;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (type){
+        switch (viewType){
             case BANNER:
                 layoutId=R.layout.activity_ling;
                 break;
@@ -66,7 +67,7 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
                 layoutId=R.layout.activity_grid;
                 break;
         }
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(layoutId, parent, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(layoutId, parent, false),viewType);
     }
 
     @Override
@@ -93,10 +94,11 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
                 break;
             case LIST:
                 if (mListBeans!=null&&mListBeans.size()>0) {
-                    VipGirdeAdapter liveAdapter = new VipGirdeAdapter(mListBeans, mContext);
+                    VipGirdeAdapter vipGirdeAdapter = new VipGirdeAdapter(mListBeans, mContext);
                     holder.mRecyclerViewgrid.setLayoutManager(new GridLayoutManager(mContext, 2));
-                    holder.mRecyclerViewgrid.setAdapter(liveAdapter);
+                    holder.mRecyclerViewgrid.setAdapter(vipGirdeAdapter);
                 }
+                break;
         }
     }
 
@@ -109,9 +111,9 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
         RecyclerView mRecyclerView;
         Banner banner;
         RecyclerView mRecyclerViewgrid;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, int pViewType) {
             super(itemView);
-            switch (type){
+            switch (pViewType){
                 case BANNER:
                     banner = itemView.findViewById(R.id.banner);
                     break;

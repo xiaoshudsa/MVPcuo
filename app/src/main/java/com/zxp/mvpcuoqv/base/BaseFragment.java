@@ -3,10 +3,13 @@ package com.zxp.mvpcuoqv.base;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -25,6 +28,7 @@ public class BaseFragment extends Fragment {
      */
     public void initRecyclerView(RecyclerView pRecyclerView, SmartRefreshLayout pRefreshLayout, DataInterfaces pDataListener) {
         if (pRecyclerView != null) pRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ((SimpleItemAnimator)pRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         if (pRefreshLayout != null && pDataListener != null) {
             pRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
                 @Override
@@ -48,5 +52,8 @@ public class BaseFragment extends Fragment {
 
     public void showToast(Object content) {
         Toast.makeText(getContext(), content.toString(), Toast.LENGTH_SHORT).show();
+    }
+    public int setColor(@ColorRes int pColor){
+        return ContextCompat.getColor(getContext(),pColor);
     }
 }

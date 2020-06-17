@@ -1,6 +1,7 @@
 package com.zxp.mvpcuoqv.base;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,7 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
     protected abstract int getlayout();
-
+    public void showLog(Object content) {
+        Log.e("睚眦", content.toString());
+    }
     public void showToast(Object content){
         if (content!=null) {
             Toast.makeText(getApplicationContext(), content.toString(), Toast.LENGTH_SHORT).show();

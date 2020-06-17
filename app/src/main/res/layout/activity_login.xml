@@ -24,11 +24,13 @@
         android:src="@mipmap/ic_logo_shadow"
         app:layout_constraintTop_toBottomOf="@id/iv_close"
         />
+
     <com.zxp.mvpcuoqv.view.LoginView
         android:id="@+id/login_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isMoreType="true"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_image" />
     <TextView
         android:id="@+id/register_press"

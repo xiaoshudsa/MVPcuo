@@ -1,6 +1,7 @@
 package com.zxp.mvpcuoqv.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,12 +12,14 @@ import com.zxp.frame.ApiConfig;
 import com.zxp.frame.FrameApplication;
 import com.zxp.frame.IContractModel;
 import com.zxp.frame.LoadTypeConfig;
+import com.zxp.frame.constants.ConstantKey;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.adapter.DataGroupAdapter;
 import com.zxp.mvpcuoqv.base.BaseMvpFragment;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
 import com.zxp.mvpcuoqv.interfaces.OnRecyclerItemClick;
 import com.zxp.mvpcuoqv.model.DataModel;
+import com.zxp.mvpcuoqv.view.HomeActivity;
 import com.zxp.mvpcuoqv.view.LoginActivity;
 
 import java.util.ArrayList;
@@ -101,7 +104,10 @@ public class DataGroupFragment extends BaseMvpFragment implements OnRecyclerItem
         if (pObjects != null && pObjects.length != 0){
             switch ((int)pObjects[0]){
                 case ITEM_TYPE:
-
+                    HomeActivity activity = (HomeActivity) getActivity();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ConstantKey.GROU_TO_DETAIL_GID,mList.get(pos).getGid());
+                    activity.navController.navigate(R.id.advertFragment,bundle);
                     break;
                 case FOCUS_TYPE:
                     boolean login = FrameApplication.isLogin();

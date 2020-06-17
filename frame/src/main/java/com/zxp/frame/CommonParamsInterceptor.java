@@ -119,7 +119,7 @@ public class CommonParamsInterceptor implements Interceptor {
         String screctKey = FrameApplication.getFrameApplicationContext().getString(R.string.secrectKey_passport);
         Device device = FrameApplication.getFrameApplication().getDeviceInfo();
         LoginInfo info = FrameApplication.getFrameApplication().getLoginInfo();
-        String uid = !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
+        String uid =info!=null&& !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
         String time = String.valueOf(System.currentTimeMillis() / 1000);
         FormBody.Builder bodyBuilder = new FormBody.Builder();
         if (request.body() instanceof FormBody) {

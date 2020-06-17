@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zxp.mvpcuoqv">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,24 +36,38 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-     android:name=".Application1907"
+        android:name=".Application1907"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.SubjectActivity"></activity>
-        <activity android:name=".view.LoginActivity"/>
-        <activity android:name=".view.HomeActivity"/>
-        <activity android:name=".view.SplashActivity" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        >
+        <activity android:name=".view.RegisterPhoneActivity"/>
+        <activity android:name=".view.RegisterActivity"></activity>
+        <activity android:name=".view.SubjectActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.ThirdAccoutBindActivity" />
+        <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity">
-        </activity>
+        <activity android:name=".view.MainActivity"></activity>
+        <!--微信回调的activity-->
+        <activity
+            android:name="com.zhulong.eduvideo.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenLayout"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

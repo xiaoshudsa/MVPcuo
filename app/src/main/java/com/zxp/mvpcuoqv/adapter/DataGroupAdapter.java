@@ -1,5 +1,6 @@
 package com.zxp.mvpcuoqv.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.yiyatech.utils.newAdd.GlideUtil;
 import com.zxp.data.DataGroupListEntity;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.interfaces.OnRecyclerItemClick;
+import com.zxp.mvpcuoqv.view.design.RoundImage;
 
 import java.util.List;
 
@@ -42,13 +47,17 @@ public class DataGroupAdapter extends RecyclerView.Adapter<DataGroupAdapter.View
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_group_list, parent, false));
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DataGroupListEntity entity = mList.get(position);
         holder.tvName.setText(entity.getGroup_name());
         holder.tvNumber.setText(entity.getMember_num());
         holder.tvDesc.setText(entity.getIntroduce());
-        GlideUtil.loadCornerImage(holder.ivThumb,entity.getAvatar(),null,6f);
+       /* GlideUtil.loadCornerImage(holder.ivThumb,entity.getAvatar(),null,6f);*/
+        RoundedCorners roundedCorners = new RoundedCorners(50);
+        RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).dontAnimate();
+        Glide.with(mContext).load(entity.getAvatar()).apply(requestOptions).into(holder.ivThumb);
         holder.tvFocus.setText(entity.isFocus() ? "已关注" : "+关注");
         holder.tvFocus.setSelected(entity.isFocus() ? true : false);
         holder.tvFocus.setTextColor(entity.isFocus() ? ContextCompat.getColor(mContext,R.color.red) : ContextCompat.getColor(mContext,R.color.fontColorGray));

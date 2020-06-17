@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_50"
-    xmlns:app="http://schemas.android.com/apk/res-auto">  <!--好点-->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_theme">  <!--好点-->
     <ImageView
         android:id="@+id/back_image"
         android:layout_width="@dimen/dp_50"

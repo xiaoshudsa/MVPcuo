@@ -8,19 +8,20 @@
         android:id="@+id/homeFragment"
         android:name="com.zxp.mvpcuoqv.fragment.HomeFragment"
         android:label="HomeFragment">
-      <!--  <action
-            android:id="@+id/toAdvert"
-            app:destination="@id/advertFragment" />-->
-    </fragment>
-    <!--<fragment
-        android:id="@+id/advertFragment"
-        android:name="com.teach.kotlinlearn.ui.fragment.AdvertFragment"
-        android:label="AdvertFragment">
         <action
-            android:id="@+id/backToHome"
-            app:popUpTo="@id/homeFragment" />
+            android:id="@+id/home_to_data_detail"
+            app:destination="@id/advertFragment" />
     </fragment>
     <fragment
+        android:id="@+id/advertFragment"
+        android:name="com.zxp.mvpcuoqv.fragment.DataGroupDetailFragment"
+        android:label="DataGroupDetailFragment">
+        <action
+            android:id="@+id/dataGroup_back_to_home"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <!--<fragment
         android:id="@+id/courseDetailFragment"
         android:name="com.teach.kotlinlearn.ui.fragment.CourseDetailFragment"
         android:label="CourseDetailFragment">

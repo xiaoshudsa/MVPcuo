@@ -5,6 +5,7 @@ import com.zxp.data.BaseInfo;
 import com.zxp.data.CourseListInfo;
 import com.zxp.data.DataGroupListEntity;
 import com.zxp.data.Databean;
+import com.zxp.data.GroupDetailEntity;
 import com.zxp.data.IndexCommondEntity;
 import com.zxp.data.LoginInfo;
 import com.zxp.data.MainAdEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -67,4 +69,42 @@ public interface IService {
     @POST
     @FormUrlEncoded
     Observable<BaseInfo> focus(@Url String url, @FieldMap Map<String,Object> params);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> checkVerifyCode(@Url String url, @FieldMap Map<String,Object> params);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> checkPhoneIsUsed(@Url String url, @Field("mobile")Object mobile);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> sendRegisterVerify(@Url String url, @Field("mobile")Object mobile);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> checkName(@Url String url, @Field("username")Object mobile);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> registerCompleteWithSubject(@Url String url, @FieldMap Map<String,Object> params);
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo<LoginInfo>> loginByAccount(@Url String url, @FieldMap Map<String,Object> params);
+    @GET
+    Observable<JsonObject> getWechatToken(@Url String url, @QueryMap Map<String,Object> parmas);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo<LoginInfo>> loginByWechat(@Url String url, @FieldMap Map<String,Object> params);
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo> bindThirdAccount(@Url String url, @FieldMap Map<String,Object> params);
+
+    @GET
+    Observable<BaseInfo<GroupDetailEntity>> getGroupDetail(@Url String url, @Query("gid") Object object);
+
+    @GET
+    Observable<BaseInfo<GroupDetailEntity>> getGroupDetailFooterData(@Url String url, @QueryMap Map<String,Object> parmas);
 }

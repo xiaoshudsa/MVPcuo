@@ -56,7 +56,7 @@ public class SubjectActivity extends BaseMvpActivity<LauchModel> {
 
     @Override
     public void setUpView() {
-        mFrom = getIntent().getStringExtra(JUMP_KEY);
+
         titleContent.setText(getString(R.string.select_subject));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new SubjectAdapter(mListData, this);
@@ -80,6 +80,7 @@ public class SubjectActivity extends BaseMvpActivity<LauchModel> {
 
     @Override
     public void setUpData() {
+        mFrom = getIntent().getStringExtra(JUMP_KEY);
         if (SharedPrefrenceUtils.getSerializableList(this, ConstantKey.SUBJECT_LIST) != null) {
             mListData.addAll(SharedPrefrenceUtils.getSerializableList(this, ConstantKey.SUBJECT_LIST));
             mAdapter.notifyDataSetChanged();

@@ -11,6 +11,7 @@ import com.zxp.frame.PrameHashMap;
 import com.zxp.mvpcuoqv.R;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class DataModel implements IContractModel {
     @Override
@@ -27,6 +28,12 @@ public class DataModel implements IContractModel {
             case ApiConfig.CLICK_TO_FOCUS:
                 PrameHashMap add2 = new PrameHashMap().add("gid", parms[0]).add("group_name", parms[1]).add("screctKey", FrameApplication.getFrameApplicationContext().getString(R.string.secrectKey_posting));
                 NetManger.getInstance().netWork(NetManger.getService().focus(Host.BBS_API+FengUrl.JOINGROUP,add2),iContractPresenter,whichApi,parms[2]);
+                break;
+            case ApiConfig.GROUP_DETAIL:
+                NetManger.getInstance().netWork(NetManger.getService().getGroupDetail(Host.BBS_OPENAPI+FengUrl.GETGROUPTHREADLIST,parms[0]),iContractPresenter,whichApi);
+                break;
+            case ApiConfig.GROUP_DETAIL_FOOTER_DATA:
+                NetManger.getInstance().netWork(NetManger.getService().getGroupDetailFooterData(Host.BBS_OPENAPI+FengUrl.GETGROUPTHREADLIST, (Map<String, Object>) parms[1]),iContractPresenter,whichApi,parms[0]);
                 break;
         }
     }

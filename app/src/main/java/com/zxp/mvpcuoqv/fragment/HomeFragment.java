@@ -2,17 +2,17 @@ package com.zxp.mvpcuoqv.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 
 import com.zxp.frame.FrameApplication;
 import com.zxp.mvpcuoqv.R;
@@ -31,17 +31,31 @@ import butterknife.OnClick;
 import static com.zxp.mvpcuoqv.constants.JumpConstant.HOME_TO_SUB;
 import static com.zxp.mvpcuoqv.constants.JumpConstant.JUMP_KEY;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class HomeFragment extends BaseMvpFragment<MainPageModel> implements BottomTabView.OnBottomTabClickCallBack, NavController.OnDestinationChangedListener {
     @BindView(R.id.select_subject)
     TextView selectSubject;
     private List<Integer> normalIcon = new ArrayList<>();//为选中的icon
-    private List<Integer> selectedIcon= new ArrayList<>();// 选中的icon
-    private List<String> tabContent= new ArrayList<>();//tab对应的内容
+    private List<Integer> selectedIcon = new ArrayList<>();// 选中的icon
+    private List<String> tabContent = new ArrayList<>();//tab对应的内容
     protected NavController mHomeController;
     private final int MAIN_PAGE = 1, COURSE = 2, VIP = 3, DATA = 4, MINE = 5;
+    private BottomTabView mTabView;
+    private String preFragment = "";
+    private String mCurrentFragment = "";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavHostFragment.findNavController(this).addOnDestinationChangedListener((controller, destination, arguments) -> {
+            mCurrentFragment = destination.getLabel().toString();
+            new Handler().postDelayed(() -> {
+                if (preFragment.equals("DataGroupDetailFragment") && mCurrentFragment.equals("HomeFragment"))
+                    mTabView.changeSelected(DATA);
+                preFragment = mCurrentFragment;
+            },50);
+        });
+    }
 
     @Override
     public MainPageModel setModel() {
@@ -55,12 +69,14 @@ public class HomeFragment extends BaseMvpFragment<MainPageModel> implements Bott
 
     @Override
     public void setUpView() {
-        BottomTabView tabView = getView().findViewById(R.id.bottom_tab);
-        Collections.addAll(normalIcon,R.drawable.main_page_view,R.drawable.course_view,R.drawable.vip_view,R.drawable.data_view,R.drawable.mine_view);
-        Collections.addAll(selectedIcon,R.drawable.main_selected,R.drawable.course_selected,R.drawable.vip_selected,R.drawable.data_selected,R.drawable.mine_selected);
-        Collections.addAll(tabContent,"主页","课程","VIP","资料","我的");
-        tabView.setResource(normalIcon,selectedIcon,tabContent);
-        tabView.setOnBottomTabClickCallBack(this);
+        mTabView = getView().findViewById(R.id.bottom_tab);
+        Collections.addAll(selectedIcon, R.drawable.main_selected, R.drawable.course_selected, R.drawable.vip_selected, R.drawable.data_selected, R.drawable.mine_selected);
+        Collections.addAll(tabContent, "主页", "课程", "VIP", "资料", "我的");
+        Collections.addAll(normalIcon, R.drawable.main_page_view, R.drawable.course_view, R.drawable.vip_view, R.drawable.data_view, R.drawable.mine_view);
+        mTabView.setResource(normalIcon, selectedIcon, tabContent);
+        mTabView.setOnBottomTabClickCallBack(this);
+        mHomeController = Navigation.findNavController(getView().findViewById(R.id.home_fragment_container));
+        mHomeController.addOnDestinationChangedListener(this);
     }
 
     @Override
@@ -71,13 +87,20 @@ public class HomeFragment extends BaseMvpFragment<MainPageModel> implements Bott
 
     @Override
     public void setUpData() {
-    mHomeController= Navigation.findNavController(getView().findViewById(R.id.home_fragment_container));
-    mHomeController.addOnDestinationChangedListener(this);
+
     }
 
     @Override
     public void netSuccess(int whichApi, Object[] pD) {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        normalIcon.clear();
+        selectedIcon.clear();
+        tabContent.clear();
     }
 
     @Override
@@ -100,17 +123,12 @@ public class HomeFragment extends BaseMvpFragment<MainPageModel> implements Bott
                 break;
         }
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        normalIcon.clear();
-        selectedIcon.clear();
-        tabContent.clear();
-    }
+
     @Override
     public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
         showLog(destination.getLabel().toString());
     }
+
     @OnClick({R.id.select_subject, R.id.search, R.id.message, R.id.scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {

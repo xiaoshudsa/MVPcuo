@@ -17,7 +17,7 @@ public class HomeActivity extends BaseMvpActivity<CommonHomeModel> implements Na
 
 
 
-    private NavController navController;
+    public   NavController navController;
 
     @Override
     protected int getlayout() {

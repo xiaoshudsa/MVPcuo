@@ -99,16 +99,20 @@ public class SplashActivity extends BaseSplashActivity {
     }
     private void jump() {
         if (mSubscribe!=null)mSubscribe.dispose();
-        if (mSelectedInfo!=null&&!TextUtils.isEmpty(mSelectedInfo.getSpecialty_id())){
-            if (Application1907.isLogin()){
-                startActivity(new Intent(this,HomeActivity.class));
+        Observable.just("我是防抖动").debounce(20,TimeUnit.MILLISECONDS).subscribe(p->{
+            if (mSelectedInfo!=null&&!TextUtils.isEmpty(mSelectedInfo.getSpecialty_id())){
+                if (Application1907.isLogin()){
+                    startActivity(new Intent(this,HomeActivity.class));
+                }else {
+                    startActivity(new Intent(this,LoginActivity.class).putExtra(JUMP_KEY,SPLASH_TO_LOGIN));
+                }
             }else {
-                startActivity(new Intent(this,LoginActivity.class).putExtra(JUMP_KEY,SPLASH_TO_LOGIN));
+                startActivity(new Intent(this,SubjectActivity.class).putExtra(JUMP_KEY,SPLASH_TO_SUB));
             }
-        }else {
-            startActivity(new Intent(this,SubjectActivity.class).putExtra(JUMP_KEY,SPLASH_TO_SUB));
-        }
-        finish();
+            finish();
+        });
+
+
     }
 
     @Override

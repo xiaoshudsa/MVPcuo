@@ -20,39 +20,43 @@ import com.zxp.data.BannerLiveInfo;
 import com.zxp.data.IndexCommondEntity;
 import com.zxp.mvpcuoqv.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter {
     private List<IndexCommondEntity> bottomList;
     private List<String> bannerData;
-    private List<BannerLiveInfo.Live> liveData;
+    private List<BannerLiveInfo.Live> liveData=new ArrayList<>();
     private Context mContext;
 
-    public HomeAdapter(List<IndexCommondEntity> pBottomList, List<String> pBannerData, List<BannerLiveInfo.Live> pLiveData, Context pContext) {
+    public HomeAdapter(List<IndexCommondEntity> pBottomList, List<String> pBannerData , Context pContext) {
         this.bottomList = pBottomList;
         this.bannerData = pBannerData;
-        this.liveData = pLiveData;
+
         this.mContext = pContext;
     }
-    public void bannerClear(){
-        this.bannerData.clear();
+    public void addLiveData(List<BannerLiveInfo.Live> pLiveData){
+        this.liveData.addAll(pLiveData);
+        notifyDataSetChanged();
+    }
+    public void clearLiveData(List<BannerLiveInfo.Live> pLiveData){
+        this.liveData.clear();
+        this.liveData.addAll(pLiveData);
+        notifyDataSetChanged();
     }
     private final int BANNER = 1, LABEL = 2, LIVE = 3, RIGHT_IMAGE = 4, BIG_IMAGE = 5;
     @Override
     public int getItemViewType(int position) {
         int type = RIGHT_IMAGE;
-        if (bannerData != null && bannerData.size() != 0 && position == 0) type = BANNER;
+        if (position == 0) type = BANNER;
         else if (position == 1) type = LABEL;
         else if (liveData != null && liveData.size() != 0 && position == 2) type = LIVE;
         else {
+            int usePos = liveData != null && liveData.size() != 0 ? position - 3 : position - 2;
             if (bottomList != null && bottomList.size() != 0) {
-                if (liveData != null && liveData.size() != 0) {position=position-3;}
-                else {
-                    if (mContext!=null&&bottomList!=null&&bannerData!=null&&liveData!=null) {position=position-2;}}
-                if (bottomList.get(position).type == 3) {
-                    type =BIG_IMAGE ;
-                } else type =RIGHT_IMAGE ;
-
+                if (bottomList.get(usePos).type == 3) {
+                    type = BIG_IMAGE;
+                } else type = RIGHT_IMAGE;
             }
         }
 

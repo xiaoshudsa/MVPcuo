@@ -70,7 +70,7 @@ public class RoundImage extends AppCompatImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+//imageview宽高像素值
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
 
@@ -89,7 +89,7 @@ public class RoundImage extends AppCompatImageView {
          */
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
-        if (w <= 0 || h <= 0)return;
+        if (w <= 0 || h <= 0) return;
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 
         /**
@@ -122,8 +122,7 @@ public class RoundImage extends AppCompatImageView {
         /**
          * 以图片作为填充器，画圆时，以图片填充圆环内部，实现圆形图片效果
          */
-        BitmapShader bitmapShader = new BitmapShader(newBmp, Shader.TileMode.CLAMP,
-                Shader.TileMode.CLAMP);
+        BitmapShader bitmapShader = new BitmapShader(newBmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         paint.setAntiAlias(true);
         paint.setShader(bitmapShader);
 

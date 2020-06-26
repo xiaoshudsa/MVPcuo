@@ -35,6 +35,10 @@ public class DataModel implements IContractModel {
             case ApiConfig.GROUP_DETAIL_FOOTER_DATA:
                 NetManger.getInstance().netWork(NetManger.getService().getGroupDetailFooterData(Host.BBS_OPENAPI+FengUrl.GETGROUPTHREADLIST, (Map<String, Object>) parms[1]),iContractPresenter,whichApi,parms[0]);
                 break;
+            case ApiConfig.DATAMODEL:
+                PrameHashMap add3 = new PrameHashMap().add("fid",FrameApplication.getFrameApplication().getSelectedInfo().getFid()).add("page", parms[1]);
+                NetManger.getInstance().netWork(NetManger.getService().getRecentlyBest(Host.BBS_OPENAPI+FengUrl.GETESSENCELIST,add3),iContractPresenter,whichApi,parms[0]);
+                break;
         }
     }
 }

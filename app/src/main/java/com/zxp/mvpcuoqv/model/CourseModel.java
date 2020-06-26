@@ -13,6 +13,7 @@ import com.zxp.frame.constants.Constants;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * Created by 任小龙 on 2020/6/9.
@@ -26,6 +27,13 @@ public class CourseModel implements IContractModel {
             case ApiConfig.COURSE_CHILD:
                 PrameHashMap add = new PrameHashMap().add("specialty_id", subjectId).add("page", parms[2]).add("limit", Constants.LIMIT_NUM).add("course_type", parms[1]);
                 NetManger.getInstance().netWork(NetManger.getService().getCourseChildData(Host.EDU_OPENAPI+ FengUrl.GETLESSONLISTFORAPI,add),iContractPresenter,whichApi,parms[0]);
+                break;
+            case ApiConfig.COURSE_DETAIL_INFO:
+                NetManger.getInstance().netWork(NetManger.getService().getCourseDetail(Host.EDU_API+FengUrl.GETNEWLESSONDETAIL, (Map<String, Object>) parms[0]),iContractPresenter,whichApi);
+                break;
+            case ApiConfig.COURSE_DETAIL_INFO_PING:
+                PrameHashMap add1 = new PrameHashMap().add("lesson_id", parms[1]).add("type", parms[2]).add("page", parms[3]).add("limit", Constants.LIMIT_NUM);
+                NetManger.getInstance().netWork(NetManger.getService().getLessonComment(Host.EDU_API+FengUrl.GETCOMMENTLIST, add1),iContractPresenter,whichApi,parms[0]);
                 break;
         }
     }

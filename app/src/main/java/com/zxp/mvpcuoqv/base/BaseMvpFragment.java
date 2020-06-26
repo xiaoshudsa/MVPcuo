@@ -38,7 +38,6 @@ public abstract class BaseMvpFragment<M extends IContractModel> extends BaseFrag
         super.onViewCreated(view, savedInstanceState);
         mModel = setModel();
         mPresenter = new ContractPersenter(this, mModel);
-
         setUpView();
         if (!inif){
             setUpData();

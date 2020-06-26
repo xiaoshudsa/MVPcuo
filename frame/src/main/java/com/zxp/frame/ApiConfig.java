@@ -30,4 +30,9 @@ public class ApiConfig {
     public static final int BIND_ACCOUNT = 22;
     public static final int GROUP_DETAIL = 23;
     public static final int GROUP_DETAIL_FOOTER_DATA = 24;
+    public static final int COURSE_DETAIL_INFO = 25;
+    public static final int COURSE_DETAIL_INFO_PING = 26;
+    public static final int COURSE_COMMENT = 27;
+    public static final int DATAMODEL = 28;
+
 }

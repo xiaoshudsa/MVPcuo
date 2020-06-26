@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yiyatech.utils.newAdd.GlideUtil;
 import com.zxp.data.SearchItemEntity;
 import com.zxp.mvpcuoqv.R;
+import com.zxp.mvpcuoqv.interfaces.OnRecyclerItemClick;
 
 import java.util.List;
 
@@ -46,8 +47,15 @@ public class CourseChildAdapter extends RecyclerView.Adapter<CourseChildAdapter.
         holder.tvLearnNum.setText(entity.getStudentnum() + "人学习");
         holder.tvLikeNum.setText("好评率" + entity.getRate());
         holder.tvPrice.setText("￥" + entity.getPrice());
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnRecyclerItemClick != null)mOnRecyclerItemClick.onItemClick(position);
+        });
     }
+    private OnRecyclerItemClick mOnRecyclerItemClick;
 
+    public void setOnRecyclerItemClick(OnRecyclerItemClick pOnRecyclerItemClick){
+        mOnRecyclerItemClick = pOnRecyclerItemClick;
+    }
     @Override
     public int getItemCount() {
         return mList != null ? mList.size() : 0;

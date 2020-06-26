@@ -1,35 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_180"
-    android:layout_height="@dimen/dp_80"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<ImageView
-    android:layout_width="@dimen/dp_40"
-    android:layout_height="@dimen/dp_40"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:id="@+id/live_img"
-    android:layout_marginTop="@dimen/dp_10"
-    android:layout_marginLeft="@dimen/dp_10"
-    />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_100">
+
     <TextView
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/live_img"
-        android:layout_marginTop="@dimen/dp_20"
         android:id="@+id/text_title"
-        android:textSize="@dimen/dp_13"
-        android:layout_margin="@dimen/dp_10"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_10"
+        android:text="15"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/live_img"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="@dimen/dp_60"
+        android:layout_margin="@dimen/dp_8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/tv_browse_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_14"
+        android:drawableLeft="@drawable/ic_post_browser"
+        android:textSize="@dimen/dp_13"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_title"
-       android:layout_marginBottom="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_60"
-        android:id="@+id/text_tiem"
+
+
         />
+
+    <TextView
+        android:id="@+id/tv_comment_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_84"
+        android:layout_marginBottom="@dimen/dp_14"
+        android:drawableLeft="@drawable/ic_comment_gray"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/text_tiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginRight="@dimen/dp_70"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/live_img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

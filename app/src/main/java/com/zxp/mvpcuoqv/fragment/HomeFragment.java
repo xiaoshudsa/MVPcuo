@@ -18,6 +18,7 @@ import com.zxp.frame.FrameApplication;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.base.BaseMvpFragment;
 import com.zxp.mvpcuoqv.model.MainPageModel;
+import com.zxp.mvpcuoqv.view.HomeActivity;
 import com.zxp.mvpcuoqv.view.SubjectActivity;
 import com.zxp.mvpcuoqv.view.design.BottomTabView;
 
@@ -47,11 +48,16 @@ public class HomeFragment extends BaseMvpFragment<MainPageModel> implements Bott
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         NavHostFragment.findNavController(this).addOnDestinationChangedListener((controller, destination, arguments) -> {
             mCurrentFragment = destination.getLabel().toString();
             new Handler().postDelayed(() -> {
-                if (preFragment.equals("DataGroupDetailFragment") && mCurrentFragment.equals("HomeFragment"))
-                    mTabView.changeSelected(DATA);
+                if (mCurrentFragment.equals("HomeFragment")){
+                    if (preFragment.equals("DataGroupDetailFragment")) {
+                        mTabView.changeSelected(DATA);
+                    }
+                    if (preFragment.equals("CourseDetailFragment"))mTabView.changeSelected(COURSE);
+                }
                 preFragment = mCurrentFragment;
             },50);
         });

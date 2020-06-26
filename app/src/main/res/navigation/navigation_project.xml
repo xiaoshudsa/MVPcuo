@@ -8,33 +8,26 @@
         android:id="@+id/homeFragment"
         android:name="com.zxp.mvpcuoqv.fragment.HomeFragment"
         android:label="HomeFragment">
-        <action
-            android:id="@+id/home_to_data_detail"
-            app:destination="@id/advertFragment" />
+        <action android:id="@+id/home_to_data_detail"
+            app:destination="@+id/dataGroupDetailFragment"/>
+        <action android:id="@+id/home_to_course_detail"
+            app:destination="@+id/courseDetailFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/advertFragment"
+        android:id="@+id/dataGroupDetailFragment"
         android:name="com.zxp.mvpcuoqv.fragment.DataGroupDetailFragment"
-        android:label="DataGroupDetailFragment">
+        android:label="DataGroupDetailFragment" >
         <action
             android:id="@+id/dataGroup_back_to_home"
-            app:popUpTo="@id/homeFragment" />
+            app:popUpTo="@id/homeFragment"/>
     </fragment>
-
-    <!--<fragment
+    <fragment
         android:id="@+id/courseDetailFragment"
-        android:name="com.teach.kotlinlearn.ui.fragment.CourseDetailFragment"
+        android:name="com.zxp.mvpcuoqv.fragment.CourseDetailFragment"
         android:label="CourseDetailFragment">
         <action
-            android:id="@+id/backToHome"
-            app:popUpTo="@id/homeFragment" />
+            android:id="@+id/course_detail_to_home"
+            app:popUpTo="@id/homeFragment"/>
     </fragment>
-    <fragment
-        android:id="@+id/videoPlayerFragmentFragment"
-        android:name="com.teach.kotlinlearn.ui.fragment.VideoPlayerFragment"
-        android:label="VideoPlayerFragmentFragment" />
-    <fragment
-        android:id="@+id/groupDetailFragment"
-        android:name="com.teach.kotlinlearn.ui.fragment.GroupDetailFragment"
-        android:label="GroupDetailFragment"/>-->
+
 </navigation>

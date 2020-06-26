@@ -375,7 +375,22 @@ public class StringUtils {
         return priceLabel;
     }
 
+    /**
+     * 对评分进行向上取整操作，如4.1为4.5, 4.6为5.0
+     *
+     * @param realRank 真实的评分
+     * @return 取整之后的评分
+     */
+    public static float getRoundRank(String realRank) {
+        if (TextUtils.isEmpty(realRank))
+            return 5.0f;
 
+        float newRank = 0.0f;
+        float rank = Float.parseFloat(realRank);
+        float floorRank = (float) Math.floor(rank);
+        newRank = floorRank + 0.5f >= rank ? (rank == floorRank ? rank : floorRank + 0.5f) : floorRank + 1;
+        return newRank;
+    }
     /**
      * @author zhenggl
      * @date 2016/4/25 19:13

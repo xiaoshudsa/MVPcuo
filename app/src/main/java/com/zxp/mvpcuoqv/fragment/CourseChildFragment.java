@@ -15,6 +15,7 @@ import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.adapter.CourseChildAdapter;
 import com.zxp.mvpcuoqv.base.BaseMvpFragment;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
+import com.zxp.mvpcuoqv.interfaces.OnRecyclerItemClick;
 import com.zxp.mvpcuoqv.model.CourseModel;
 
 
@@ -66,6 +67,13 @@ public class CourseChildFragment extends BaseMvpFragment<CourseModel> implements
         initRecyclerView(recyclerView, refreshLayout, this);
         mAdapter = new CourseChildAdapter(mList, getContext());
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnRecyclerItemClick((pos, pObjects) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("itemInfo",mList.get(pos));
+            bundle.putString("record", "0");
+            bundle.putString("f", "1004");
+            getHomeActivity().navController.navigate(R.id.home_to_course_detail,bundle);
+        });
     }
 
     @Override

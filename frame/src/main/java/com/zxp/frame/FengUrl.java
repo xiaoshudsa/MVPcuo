@@ -25,6 +25,9 @@ public class FengUrl {
     public static final String THIRDLOGIN = "thirdlogin";
     public static final String NEWTHIRDBIND = "newThirdbind";
     public static final String GETGROUPTHREADLIST = "group/getGroupThreadList";
+    public static final String GETNEWLESSONDETAIL = "getNewLessonDetail";
+    public static final String GETCOMMENTLIST = "lesson/getcommentlist";
+    public static final String GETESSENCELIST = "group/getThreadEssence";
     /**
      * 静态代码块，优先于对象的创建而执行，且只执行一次
      */

@@ -59,6 +59,7 @@ public class DataGroupFragment extends BaseMvpFragment implements OnRecyclerItem
    private int page=1;
     @Override
     public void setUpData() {
+        mPresenter.allowLoading(getActivity());
         mPresenter.getData(ApiConfig.DATA_GROUP, LoadTypeConfig.NORMAL, page);
     }
 
@@ -66,16 +67,16 @@ public class DataGroupFragment extends BaseMvpFragment implements OnRecyclerItem
     public void netSuccess(int whichApi, Object[] pD) {
         switch (whichApi){
             case ApiConfig.DATA_GROUP:
-                BaseInfo<List<DataGroupListEntity>> listBaseInfo = (BaseInfo<List<DataGroupListEntity>>) pD[0];
-                if (listBaseInfo.isSuccess()){
-                    List<DataGroupListEntity> result = listBaseInfo.result;
-                    int loadMode = (int) ((Object[]) pD[1])[0];
-                    if (loadMode==LoadTypeConfig.REFRESH){
-                        mList.clear();
-                        refreshLayout.finishRefresh();
-                    }else if (loadMode==LoadTypeConfig.MORE)refreshLayout.finishLoadMore();
-                    mList.addAll(result);
-                    mAdapter.notifyDataSetChanged();
+                        BaseInfo<List<DataGroupListEntity>> listBaseInfo = (BaseInfo<List<DataGroupListEntity>>) pD[0];
+                        if (listBaseInfo.isSuccess()){
+                            List<DataGroupListEntity> result = listBaseInfo.result;
+                            int loadMode = (int) ((Object[]) pD[1])[0];
+                            if (loadMode==LoadTypeConfig.REFRESH){
+                                mList.clear();
+                                refreshLayout.finishRefresh();
+                            }else if (loadMode==LoadTypeConfig.MORE)refreshLayout.finishLoadMore();
+                            mList.addAll(result);
+                            mAdapter.notifyDataSetChanged();
                 }
                 break;
             case ApiConfig.CLICK_CANCEL_FOCUS:
@@ -107,7 +108,7 @@ public class DataGroupFragment extends BaseMvpFragment implements OnRecyclerItem
                     HomeActivity activity = (HomeActivity) getActivity();
                     Bundle bundle = new Bundle();
                     bundle.putString(ConstantKey.GROU_TO_DETAIL_GID,mList.get(pos).getGid());
-                    activity.navController.navigate(R.id.advertFragment,bundle);
+                    activity.navController.navigate(R.id.dataGroupDetailFragment,bundle);
                     break;
                 case FOCUS_TYPE:
                     boolean login = FrameApplication.isLogin();

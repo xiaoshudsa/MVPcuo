@@ -65,7 +65,7 @@ public class DataFragment extends BaseFragment {
                 return mFragments.size();
             }
         });
-        String[] strings = {"资料小组", "资料小组"};
+        String[] strings = {"资料小组", "最新精华"};
         tabLayout.setTabData(strings);
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override

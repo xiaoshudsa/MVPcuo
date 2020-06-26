@@ -10,6 +10,7 @@ public class BaseInfo<D> implements Serializable {
     public int errNo;
     public int exeTime;
     public String msg;
+    public String discount_info;
     public D result;
 
     public boolean isSuccess() {

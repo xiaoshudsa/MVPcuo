@@ -2,11 +2,14 @@ package com.zxp.frame;
 
 import com.google.gson.JsonObject;
 import com.zxp.data.BaseInfo;
+import com.zxp.data.CourseDetailInfo;
 import com.zxp.data.CourseListInfo;
 import com.zxp.data.DataGroupListEntity;
 import com.zxp.data.Databean;
+import com.zxp.data.EssenceBean;
 import com.zxp.data.GroupDetailEntity;
 import com.zxp.data.IndexCommondEntity;
+import com.zxp.data.LessonComment;
 import com.zxp.data.LoginInfo;
 import com.zxp.data.MainAdEntity;
 import com.zxp.data.PersonHeader;
@@ -106,5 +109,15 @@ public interface IService {
     Observable<BaseInfo<GroupDetailEntity>> getGroupDetail(@Url String url, @Query("gid") Object object);
 
     @GET
-    Observable<BaseInfo<GroupDetailEntity>> getGroupDetailFooterData(@Url String url, @QueryMap Map<String,Object> parmas);
+    Observable<JsonObject> getGroupDetailFooterData(@Url String url, @QueryMap Map<String,Object> parmas);
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo<CourseDetailInfo>> getCourseDetail(@Url String url, @FieldMap Map<String, Object> pMap);
+
+    @GET
+    Observable<BaseInfo<List<LessonComment>>> getLessonComment(@Url String url, @QueryMap Map<String, Object> pMap);
+
+    @POST
+    @FormUrlEncoded
+    Observable<BaseInfo<List<EssenceBean>>> getRecentlyBest(@Url String url, @FieldMap Map<String, Object> pMap);
 }

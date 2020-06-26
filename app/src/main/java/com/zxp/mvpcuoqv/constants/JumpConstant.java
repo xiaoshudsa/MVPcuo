@@ -12,4 +12,5 @@ public class JumpConstant {
     public static final String SPLASH_TO_LOGIN = "splash_to_login";
     public static final String DATAGROUPFRAGMENT_TO_LOGIN = "dataGroupFragment_to_login";
     public static final String REGISTER_TO_LOGIN = "register_to_login";
+    public static final String COURSE_DETAIL_TO_LOGIN = "course_detail_to_login";
 }

@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zxp.frame.LoadTypeConfig;
 import com.zxp.mvpcuoqv.interfaces.DataInterfaces;
+import com.zxp.mvpcuoqv.view.HomeActivity;
 
 
 public class BaseFragment extends Fragment {
@@ -55,5 +56,8 @@ public class BaseFragment extends Fragment {
     }
     public int setColor(@ColorRes int pColor){
         return ContextCompat.getColor(getContext(),pColor);
+    }
+    public HomeActivity getHomeActivity(){
+        return (HomeActivity)getActivity();
     }
 }

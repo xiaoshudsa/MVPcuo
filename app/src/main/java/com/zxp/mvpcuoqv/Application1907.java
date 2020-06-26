@@ -1,6 +1,8 @@
 package com.zxp.mvpcuoqv;
 
 import android.content.Context;
+
+import com.yiyatech.utils.newAdd.FontUtil;
 import com.zxp.frame.FrameApplication;
 
 public class Application1907 extends FrameApplication {
@@ -20,6 +22,8 @@ public class Application1907 extends FrameApplication {
     public void onCreate() {
         super.onCreate();
         mApplication1907=this;
+
+        FontUtil.initTypeface(this,"PingFang Regular.ttf");
     }
     public static Application1907 getApplication1907Instance(){
         return mApplication1907;

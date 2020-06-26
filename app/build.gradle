@@ -60,6 +60,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.VersionCode
         versionName rootProject.ext.VersionName
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -95,6 +96,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
     implementation project(path: ':basepop')
     implementation files('libs\\libammsdk.jar')
+    implementation files('libs\\ccsdk.jar')
     testImplementation "junit:junit:$junit"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation "androidx.test.ext:junit:$junitth"

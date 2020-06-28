@@ -115,7 +115,7 @@ public interface IService {
     Observable<BaseInfo<CourseDetailInfo>> getCourseDetail(@Url String url, @FieldMap Map<String, Object> pMap);
 
     @GET
-    Observable<BaseInfo<List<LessonComment>>> getLessonComment(@Url String url, @QueryMap Map<String, Object> pMap);
+    Observable<BaseInfo<List<LessonComment>>> getCommentList(@Url String url,@QueryMap Map<String,Object> params);
 
     @POST
     @FormUrlEncoded

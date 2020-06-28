@@ -31,9 +31,9 @@ public class CourseModel implements IContractModel {
             case ApiConfig.COURSE_DETAIL_INFO:
                 NetManger.getInstance().netWork(NetManger.getService().getCourseDetail(Host.EDU_API+FengUrl.GETNEWLESSONDETAIL, (Map<String, Object>) parms[0]),iContractPresenter,whichApi);
                 break;
-            case ApiConfig.COURSE_DETAIL_INFO_PING:
+            case ApiConfig.COURSE_COMMENT:
                 PrameHashMap add1 = new PrameHashMap().add("lesson_id", parms[1]).add("type", parms[2]).add("page", parms[3]).add("limit", Constants.LIMIT_NUM);
-                NetManger.getInstance().netWork(NetManger.getService().getLessonComment(Host.EDU_API+FengUrl.GETCOMMENTLIST, add1),iContractPresenter,whichApi,parms[0]);
+                NetManger.getInstance().netWork(NetManger.getService().getCommentList(Host.EDU_OPENAPI+FengUrl.GETCOMMENTLIST,add1),iContractPresenter,whichApi,parms[0]);
                 break;
         }
     }

@@ -139,6 +139,11 @@ public class CourseDetailFragment extends BaseMvpFragment<CourseModel> {
         });
     }
 
+    /*@Override
+    public void onResume() {
+        super.onResume();
+        setUpData();
+    }*/
     @Override
     public void setUpData() {
         mPresenter.allowLoading(getActivity());

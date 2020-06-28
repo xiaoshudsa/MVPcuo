@@ -83,17 +83,22 @@ public class CourseDetailCommentFragment extends BaseMvpFragment<CourseModel> im
 
     @Override
     public void netSuccess(int whichApi, Object[] pD) {
-        BaseInfo<List<LessonComment>> baseInfo = (BaseInfo<List<LessonComment>>) pD[0];
-        int loadType = (int) ((Object[]) pD[1])[0];
-        if (baseInfo.isSuccess()) {
-            if (loadType == LoadTypeConfig.MORE) refreshLayout.finishLoadMore();
-            if (loadType == LoadTypeConfig.REFRESH) {
-                refreshLayout.finishRefresh();
-                mCommentList.clear();
-            }
-            mCommentList.addAll(baseInfo.result);
-            mAdapter.notifyDataSetChanged();
+        switch (whichApi){
+            case ApiConfig.COURSE_COMMENT:
+                BaseInfo<List<LessonComment>> baseInfo = (BaseInfo<List<LessonComment>>) pD[0];
+                int loadType = (int) ((Object[]) pD[1])[0];
+                if (baseInfo.isSuccess()) {
+                    if (loadType == LoadTypeConfig.MORE) refreshLayout.finishLoadMore();
+                    if (loadType == LoadTypeConfig.REFRESH) {
+                        refreshLayout.finishRefresh();
+                        mCommentList.clear();
+                    }
+                    mCommentList.addAll(baseInfo.result);
+                    mAdapter.notifyDataSetChanged();
+                }
+                break;
         }
+
     }
 
     @Override

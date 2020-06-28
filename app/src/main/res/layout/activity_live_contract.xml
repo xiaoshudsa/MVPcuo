@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_205"
+    android:layout_height="@dimen/dp_110"
+    android:background="@drawable/live_bg_shape"
+    android:layout_margin="@dimen/dp_10"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ImageView
+    android:layout_width="@dimen/dp_50"
+    android:layout_height="@dimen/dp_50"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="@dimen/dp_20"
+    android:layout_marginLeft="@dimen/dp_8"
+    android:id="@+id/live_img"
+    />
+    <TextView
+        android:layout_width="@dimen/dp_130"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/live_img"
+        android:layout_marginTop="@dimen/dp_20"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:id="@+id/text_title"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_tiem"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/dp_80"
+        android:layout_marginRight="@dimen/dp_24"
+        android:drawableLeft="@drawable/ic_alarm"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

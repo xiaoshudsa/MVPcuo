@@ -92,7 +92,7 @@ public class CourseDescribeAdapter extends RecyclerView.Adapter<CourseDescribeAd
 
     @Override
     public int getItemCount() {
-        return commentList != null ? commentList.size() >= 2 ? 2 : commentList.size() : 0;
+        return commentList != null ?  commentList.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

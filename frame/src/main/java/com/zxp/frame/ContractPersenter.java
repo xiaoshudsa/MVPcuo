@@ -46,6 +46,7 @@ public class ContractPersenter<V extends IContractView,M extends IContractModel>
     @Override
     public void onData(int whichApi, Object[] pa) {
         if (mView != null && mView.get() != null)mView.get().onData(whichApi,pa);
+        if (mInstance!=null)mInstance.dismiss();
     }
 
     @Override

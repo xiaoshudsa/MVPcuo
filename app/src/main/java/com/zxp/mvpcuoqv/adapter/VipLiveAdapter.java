@@ -2,6 +2,7 @@ package com.zxp.mvpcuoqv.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 
 
 import com.bumptech.glide.request.RequestOptions;
+import com.yiyatech.utils.newAdd.TimeUtil;
 import com.zxp.data.VipLiveBean;
 import com.zxp.mvpcuoqv.R;
 
@@ -34,14 +36,14 @@ public class VipLiveAdapter extends RecyclerView.Adapter<VipLiveAdapter.ViewHold
     @Override
     public ViewHolde onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        return new ViewHolde(LayoutInflater.from(mContext).inflate(R.layout.activity_live_adapter,parent,false));
+        return new ViewHolde(LayoutInflater.from(mContext).inflate(R.layout.activity_live_contract,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolde holder, int position) {
         VipLiveBean.LiveBeanX.LiveBean liveBean = mLiveBeans.get(position);
         holder.mTextView.setText(liveBean.getActivityName());
-        holder.mTime.setText(liveBean.getStart_date());
+        if (!TextUtils.isEmpty(liveBean.getStartTime()))holder.mTime.setText(TimeUtil.formatLiveTime(Long.parseLong(liveBean.getStartTime())));
         RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(mContext).load(liveBean.getCoverImgUrl()).apply(requestOptions).into(holder.mImageView);
     }

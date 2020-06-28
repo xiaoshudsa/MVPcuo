@@ -179,7 +179,7 @@ public class DataGroupDetailFragment extends BaseMvpFragment<DataModel> implemen
             popTabClick(pos1);
         });
     }
-
+     public   LoadView  mLoadView;
     /**
      * popupWindow中的标签点击逻辑
      *
@@ -188,7 +188,7 @@ public class DataGroupDetailFragment extends BaseMvpFragment<DataModel> implemen
     private int currentPopPos = -1;
 
     private void popTabClick(int pos) {
-        LoadView.getInstance(getActivity(), null).show();
+        mLoadView = new LoadView(getActivity(), null);
         currentPopPos = pos;
         GroupDetailEntity.Tag.SelectsBean selectsBean = mPopData.get(pos);
         tags = tags.equals(selectsBean.getUrl()) ? "" : selectsBean.getUrl();
@@ -225,7 +225,7 @@ public class DataGroupDetailFragment extends BaseMvpFragment<DataModel> implemen
                 }
                 break;
             case ApiConfig.GROUP_DETAIL_FOOTER_DATA:
-                LoadView.getInstance(getActivity(), null).dismiss();
+                if (mLoadView != null && mLoadView.isShowing())mLoadView.dismiss();
                 String s = pD[0].toString();
                 try {
                     JSONObject bigJson = new JSONObject(s);

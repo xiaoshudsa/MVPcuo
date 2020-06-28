@@ -2,6 +2,7 @@ package com.zxp.mvpcuoqv.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,6 +87,7 @@ public class CourseDetailFragment extends BaseMvpFragment<CourseModel> {
     private List<Fragment> mFragments = new ArrayList<>();
     private MyFragmentAdapter mMyFragmentAdapter;
     public CourseDetailInfo mResult;
+    private PrameHashMap mAdd;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -147,10 +149,10 @@ public class CourseDetailFragment extends BaseMvpFragment<CourseModel> {
     @Override
     public void setUpData() {
         mPresenter.allowLoading(getActivity());
-        PrameHashMap add = new PrameHashMap().add("lesson_id", itemInfo.getLesson_id()).add("from_type", itemInfo.getType()).add("f", mCodeF)
+        mAdd = new PrameHashMap().add("lesson_id", itemInfo.getLesson_id()).add("from_type", itemInfo.getType()).add("f", mCodeF)
                 .add("width", Float.valueOf(DensityUtil.px2dip(getContext(), DensityUtil.getDisplaySize(getContext()).x) + ""))
                 .add(ConstantKey.SECRET_KEY, getString(R.string.secrectKey));
-        mPresenter.getData(ApiConfig.COURSE_DETAIL_INFO, add);
+        mPresenter.getData(ApiConfig.COURSE_DETAIL_INFO, mAdd);
     }
 
     @Override
@@ -178,11 +180,14 @@ public class CourseDetailFragment extends BaseMvpFragment<CourseModel> {
                     courseDetailSlideTab.notifyDataSetChanged();
                     mMyFragmentAdapter.notifyDataSetChanged();
                 } else {
-                    showToast(info.msg);
-                    if (info.msg.equals("登录信息过期，请重新登录")) ;
-                    FrameApplication.getFrameApplication().setmLoginInfo(new LoginInfo());
-                    SharedPrefrenceUtils.putObject(getContext(), ConstantKey.LOGIN_INFO, FrameApplication.getFrameApplication().getLoginInfo());
-                    startActivity(new Intent(getContext(), LoginActivity.class).putExtra(JUMP_KEY, COURSE_DETAIL_TO_LOGIN));
+                  /*  showToast(info.msg);*/
+                  /*  if (info.msg.equals("登录信息过期，请重新登录")) ;*/
+                        FrameApplication.getFrameApplication().setmLoginInfo(new LoginInfo());
+                           SharedPrefrenceUtils.putObject(getContext(), ConstantKey.LOGIN_INFO, FrameApplication.getFrameApplication().getLoginInfo());
+                    if ( FrameApplication.getFrameApplication().getLoginInfo()!=null&&!TextUtils.isEmpty(FrameApplication.getFrameApplication().getLoginInfo().getUid())) {
+                        startActivity(new Intent(getContext(), LoginActivity.class).putExtra(JUMP_KEY, COURSE_DETAIL_TO_LOGIN));
+                    }
+                    mPresenter.getData(ApiConfig.COURSE_DETAIL_INFO, mAdd);
                 }
                 break;
         }

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
-
 import com.zxp.data.Device;
 import com.zxp.data.LoginInfo;
 import com.zxp.frame.constants.ConstantKey;
@@ -76,7 +75,7 @@ public class CommonParamsInterceptor implements Interceptor {
     private Request addUrl(Request request) {
         Device device = FrameApplication.getFrameApplication().getDeviceInfo();
         LoginInfo info = FrameApplication.getFrameApplication().getLoginInfo();
-        String uid = info!=null&&!TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
+        String uid = info != null && !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
         String time = String.valueOf(System.currentTimeMillis() / 1000);
         HttpUrl httpUrl = request.url()
                 .newBuilder()
@@ -101,7 +100,6 @@ public class CommonParamsInterceptor implements Interceptor {
         sb.append(appid).append(secrectKey).append(time).append(functionName)
                 .append(uid);
         token = Md5Util.getStringMd5(sb.toString());
-
         return token;
     }
 
@@ -119,13 +117,14 @@ public class CommonParamsInterceptor implements Interceptor {
         String screctKey = FrameApplication.getFrameApplicationContext().getString(R.string.secrectKey_passport);
         Device device = FrameApplication.getFrameApplication().getDeviceInfo();
         LoginInfo info = FrameApplication.getFrameApplication().getLoginInfo();
-        String uid =info!=null&& !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
+        String uid = info != null && !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
         String time = String.valueOf(System.currentTimeMillis() / 1000);
         FormBody.Builder bodyBuilder = new FormBody.Builder();
         if (request.body() instanceof FormBody) {
             FormBody formBody = (FormBody) request.body();
             for (int i = 0; i < formBody.size(); i++) {
                 if (formBody.encodedName(i).equals("uid")){
+                    //如果你网络请求传了UID，以传 为准，没传，用登录时候返回的UID
                     uid = formBody.encodedValue(i);
                 }
                 if(formBody.encodedName(i).equals(ConstantKey.SECRET_KEY)){
@@ -136,9 +135,11 @@ public class CommonParamsInterceptor implements Interceptor {
                     }
                     continue;
                 }
+                //将出发是携带的参数添加到新创建的的请求体中
                 bodyBuilder.addEncoded(formBody.encodedName(i), formBody.encodedValue(i));
             }
         }
+        //将公共参数添加到新创建的的请求体中
         bodyBuilder.addEncoded("appid", Constants.appid);
         bodyBuilder.addEncoded("uid", uid);
         bodyBuilder.addEncoded("time", time);
@@ -159,7 +160,7 @@ public class CommonParamsInterceptor implements Interceptor {
         String screctKey = FrameApplication.getFrameApplicationContext().getString(R.string.secrectKey_passport);
         Device device = FrameApplication.getFrameApplication().getDeviceInfo();
         LoginInfo info = FrameApplication.getFrameApplication().getLoginInfo();
-        String uid = !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
+        String uid = info != null && !TextUtils.isEmpty(info.getUid()) ? info.getUid() : "0";
         String time = String.valueOf(System.currentTimeMillis() / 1000);
         HttpUrl.Builder httpBuilder = request.url().newBuilder()
                 .addEncodedQueryParameter("uid", uid)

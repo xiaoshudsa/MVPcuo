@@ -14,17 +14,10 @@ import android.widget.TextView;
 public class LoadView extends Dialog {
 
     private ProgressImageView mProgressView;
-
     private TextView mTvContent;
-
     private String mContent;
-    private static LoadView sLoadView;
 
-    public static LoadView getInstance(Context context, String content) {
-        if (sLoadView == null)
-            sLoadView = new LoadView(context, content);
-        return sLoadView;
-    }
+
 
     public LoadView(Context context, String content) {
         super(context, R.style.DialogStyle);

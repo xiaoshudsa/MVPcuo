@@ -62,7 +62,32 @@ android {
         versionName rootProject.ext.VersionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //        给清单文件中配置的占位符赋值
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng", UMENG_APPKEY: "5b4aee498f4a9d2b1400042c"]
+        flavorDimensions "channel"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    //声明的渠道
+    productFlavors {
+        xiaomi { dimension "channel" }
+        huawei { dimension "channel" }
+        Tencent { dimension "channel" }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+//            def name="${"zhulong"}${"-"}${variant.productFlavors[0].name}${"-"}$buildType.name${"-outTest"}${"-V"}$defaultConfig.versionName${".apk"}"
+//            def name="${"zhulong"}${"-"}${variant.productFlavors[0].name}${"-"}$buildType.name${"-innerTest"}${"-V"}$defaultConfig.versionName${".apk"}"
+            def name="${"zhulong"}${"-"}${variant.productFlavors[0].name}${"-"}$buildType.name${"-V"}$defaultConfig.versionName${".apk"}"
+            outputFileName = name
+        }
+    }
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -80,11 +105,15 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled rootProject.ext.minify
+            shrinkResources rootProject.ext.minify
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug{
+            minifyEnabled rootProject.ext.minify
+            shrinkResources rootProject.ext.minify
             signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -97,6 +126,10 @@ dependencies {
     implementation project(path: ':basepop')
     implementation files('libs\\libammsdk.jar')
     implementation files('libs\\ccsdk.jar')
+    implementation files('libs\\umeng-share-core-6.9.3.jar')
+    implementation files('libs\\umeng-common-1.5.3.jar')
+    implementation files('libs\\umeng-sharetool-6.9.3.jar')
+    implementation files('libs\\umeng-shareboard-widget-6.9.3.jar')
     testImplementation "junit:junit:$junit"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation "androidx.test.ext:junit:$junitth"

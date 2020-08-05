@@ -6,6 +6,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.yiyatech.utils.newAdd.FontUtil;
 import com.zxp.frame.FrameApplication;
+import com.zxp.mvpcuoqv.kotlin.Ban;
+import com.zxp.mvpcuoqv.kotlin.Text;
 
 public class Application1907 extends FrameApplication {
     private static Application1907 mApplication1907;
@@ -40,6 +42,8 @@ public class Application1907 extends FrameApplication {
         if (LeakCanary.isInAnalyzerProcess(this) /*|| API_TYPE == 3*/) {
             return RefWatcher.DISABLED;
         }
+       /* String user = new Text("", 1).user;
+        String fang = new Ban().fang("");*/
         //调用install方法后，首先程序会检测是否安装对应该程序的监听附件程序，如果没有安装进行安装
         //其次方法内部自动实现了对activity内部生命周期的监听，包括activity内部的fragment
         return LeakCanary.install(this);

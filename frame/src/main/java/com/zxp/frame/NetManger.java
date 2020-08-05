@@ -16,18 +16,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetManger {
     private NetManger() {
     }
-    private static volatile NetManger sNetManger;
+    private static volatile NetManger mSNetManger;
     private static IService  service;
     public static NetManger getInstance(){
-        if (sNetManger==null){
+        if (mSNetManger ==null){
             synchronized (NetManger.class){
-                if (sNetManger==null){
-                    sNetManger=new NetManger();
+                if (mSNetManger ==null){
+                    mSNetManger =new NetManger();
                     service=getService();
                 }
             }
         }
-        return sNetManger;
+        return mSNetManger;
     }
 public static IService getService(){
 
@@ -72,7 +72,7 @@ public static IService getService(){
     public <T, O> void netWork(Observable<T> localTestInfo, final IContractPresenter pPresenter, final int whichApi, final O... o) {
         localTestInfo.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver() {
+                .subscribe(new BaseObserverKt() {
                     @Override public void onSubscribe(Disposable d) {
                                    super.onSubscribe(d);
                         pPresenter.addObserver(d);

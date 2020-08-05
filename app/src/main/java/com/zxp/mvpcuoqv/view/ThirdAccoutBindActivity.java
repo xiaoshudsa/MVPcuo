@@ -69,7 +69,7 @@ public class ThirdAccoutBindActivity extends BaseMvpActivity<AccountModel> {
                     showToast("密码不能为空");
                     return;
                 }
-                contractPersenter.getData(ApiConfig.BIND_ACCOUNT, account.getText().toString(), password.getText().toString(), mThirdData);
+                mContractPresenter.getData(ApiConfig.BIND_ACCOUNT, account.getText().toString(), password.getText().toString(), mThirdData);
                 break;
         }
     }

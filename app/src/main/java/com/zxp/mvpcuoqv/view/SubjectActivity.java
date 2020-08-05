@@ -85,7 +85,7 @@ public class SubjectActivity extends BaseMvpActivity<LauchModel> {
             mListData.addAll(SharedPrefrenceUtils.getSerializableList(this, ConstantKey.SUBJECT_LIST));
             mAdapter.notifyDataSetChanged();
         } else
-            contractPersenter.getData(ApiConfig.SUBJECT);
+            mContractPresenter.getData(ApiConfig.SUBJECT);
     }
 
     @Override

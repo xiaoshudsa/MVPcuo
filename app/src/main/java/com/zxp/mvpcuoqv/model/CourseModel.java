@@ -8,11 +8,8 @@ import com.zxp.frame.IContractModel;
 import com.zxp.frame.IContractPresenter;
 import com.zxp.frame.NetManger;
 import com.zxp.frame.PrameHashMap;
-import com.zxp.frame.constants.ConstantKey;
 import com.zxp.frame.constants.Constants;
 
-import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.Map;
 
 /**

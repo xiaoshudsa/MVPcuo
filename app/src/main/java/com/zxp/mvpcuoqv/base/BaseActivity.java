@@ -1,6 +1,8 @@
 package com.zxp.mvpcuoqv.base;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,6 +33,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getlayout());
         ButterKnife.bind(this);
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     public void  initRecyclerView(RecyclerView pRectRecyclerView, SmartRefreshLayout pRefreshLayout, final DataInterfaces pdataInterfaces){
         if (pRectRecyclerView!=null)pRectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (pRefreshLayout!=null){

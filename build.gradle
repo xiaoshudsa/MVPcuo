@@ -6,10 +6,13 @@ buildscript {
         jcenter()
         
     }
+    ext.anko_version = "0.10.1"//
+    ext.kotlin_version = '1.3.72'
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'com.mob.sdk:MobSDK:+'
-
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -53,11 +56,11 @@ ext {
     junitth='1.1.1'
     appcompat='1.1.0'
     jiecao = '5.5'
-    minify = false
+    minify = true
     leakCanary = '1.5.4'
     smartRefresh = '1.1.0-andx-11'
     gson = '2.8.5'
-    kotlin_version='1.4.0'
+   /* kotlin_version='1.4.0'*/
     eventBusVersion = '3.1.1'
     jsoupVersion = '1.10.2'
     xstreamVersion = '1.2.2'

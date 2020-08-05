@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zxp.frame.ContractPersenter;
+
 import com.zxp.frame.IContractModel;
-import com.zxp.frame.IContractPresenter;
 import com.zxp.frame.IContractView;
 
 import butterknife.ButterKnife;

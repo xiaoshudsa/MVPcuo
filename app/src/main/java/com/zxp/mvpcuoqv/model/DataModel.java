@@ -10,7 +10,6 @@ import com.zxp.frame.NetManger;
 import com.zxp.frame.PrameHashMap;
 import com.zxp.mvpcuoqv.R;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 public class DataModel implements IContractModel {

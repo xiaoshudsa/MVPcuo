@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/frame" />
             <option value="$PROJECT_DIR$/utils" />
+            <option value="$PROJECT_DIR$/xiaomokong" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

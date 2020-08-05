@@ -113,12 +113,12 @@ public class RegisterActivity extends BaseMvpActivity<AccountModel> implements D
                 boolean phone = RegexUtil.isPhone(userName.getText().toString().trim());
                 if (phone) {
                     SoftInputControl.hideSoftInput(this,userName);
-                    contractPersenter.getData(ApiConfig.CHECK_PHONE_IS_USED,telephoneDesc.getText().toString() + userName.getText().toString().trim());
+                    mContractPresenter.getData(ApiConfig.CHECK_PHONE_IS_USED,telephoneDesc.getText().toString() + userName.getText().toString().trim());
                 }
                 else showToast("手机号格式错误");
                 break;
             case R.id.next_page:
-                contractPersenter.getData(ApiConfig.REGISTER_PHONE, telephoneDesc.getText().toString() + userName.getText().toString().trim(), password.getText().toString().trim());
+                mContractPresenter.getData(ApiConfig.REGISTER_PHONE, telephoneDesc.getText().toString() + userName.getText().toString().trim(), password.getText().toString().trim());
                 break;
         }
     }
@@ -150,7 +150,7 @@ public class RegisterActivity extends BaseMvpActivity<AccountModel> implements D
     @Override
     public void onClick(int type) {
         if (type == mConfirmDialog.OK){
-            contractPersenter.getData(ApiConfig.SEND_REGISTER_VERIFY,telephoneDesc.getText().toString() + userName.getText().toString().trim());
+            mContractPresenter.getData(ApiConfig.SEND_REGISTER_VERIFY,telephoneDesc.getText().toString() + userName.getText().toString().trim());
         }
         mConfirmDialog.dismiss();
     }

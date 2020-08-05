@@ -23,7 +23,6 @@ import com.zxp.frame.util.SystemUtils;
 import com.zxp.mvpcuoqv.R;
 import com.zxp.mvpcuoqv.base.BaseSplashActivity;
 
-import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 
@@ -64,7 +63,7 @@ public class SplashActivity extends BaseSplashActivity {
             specialtyId = mSelectedInfo.getSpecialty_id();
         }
         Point realSize = SystemUtils.getRealSize(this);
-        contractPersenter.getData(ApiConfig.ADVERT,specialtyId,realSize.x,realSize.y);
+        mContractPresenter.getData(ApiConfig.ADVERT,specialtyId,realSize.x,realSize.y);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

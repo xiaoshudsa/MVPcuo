@@ -30,6 +30,7 @@ public abstract class BaseObserver implements Observer {
     public void onComplete() {
         dispose();
     }
+
     public abstract void onSuccess(Object value);
 
     public abstract void onFailed(Throwable e);

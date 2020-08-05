@@ -55,11 +55,11 @@ public class MainActivity extends BaseMvpActivity implements IContractView {
             public void dataType(int mode) {
                 if (mode==LoadTypeConfig.REFRESH){
                     pageId++;
-                    contractPersenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.REFRESH, prameHashMap, pageId);
+                    mContractPresenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.REFRESH, prameHashMap, pageId);
 
                 }else {
                     pageId = 0;
-                    contractPersenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.MORE, prameHashMap, pageId);
+                    mContractPresenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.MORE, prameHashMap, pageId);
                 }
             }
         });
@@ -72,7 +72,7 @@ public class MainActivity extends BaseMvpActivity implements IContractView {
     @Override
     public void setUpData() {
 
-        contractPersenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.NORMAL, prameHashMap, pageId);
+        mContractPresenter.getData(ApiConfig.TEST_GET, LoadTypeConfig.NORMAL, prameHashMap, pageId);
     }
 
     @Override

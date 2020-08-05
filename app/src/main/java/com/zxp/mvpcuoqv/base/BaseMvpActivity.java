@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
 import com.zxp.frame.ContractPersenter;
 import com.zxp.frame.IContractModel;
 import com.zxp.frame.IContractView;
@@ -16,13 +17,13 @@ import com.zxp.frame.IContractView;
 public abstract class BaseMvpActivity<M extends IContractModel>extends BaseActivity implements IContractView {
 
     private M setModel;
-    public ContractPersenter contractPersenter;
+    public ContractPersenter mContractPresenter;
     @NonNull
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setModel = setModel();
-        contractPersenter = new ContractPersenter(this,setModel);
+        mContractPresenter = new ContractPersenter(this,setModel);
         setUpView();
         setUpData();
     }
@@ -47,6 +48,6 @@ public abstract class BaseMvpActivity<M extends IContractModel>extends BaseActiv
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        contractPersenter.clear();
+        mContractPresenter.clear();
     }
 }

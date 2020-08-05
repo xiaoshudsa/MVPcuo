@@ -70,7 +70,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantKey.BIND_BACK_LOGIN){
-            contractPersenter.getData(ApiConfig.POST_WE_CHAT_LOGIN_INFO, mThirdData);
+            mContractPresenter.getData(ApiConfig.POST_WE_CHAT_LOGIN_INFO, mThirdData);
         }
     }
     @Override
@@ -89,7 +89,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
                 LoginInfo result = loginInfoBaseInfo.result;
                 result.login_name = phoneNum;
                 mApplication1907.setmLoginInfo(result);
-                contractPersenter.getData(ApiConfig.GET_HEADER_INFO);
+                mContractPresenter.getData(ApiConfig.GET_HEADER_INFO);
                 break;
             case ApiConfig.ACCOUNT_LOGIN:
             case ApiConfig.POST_WE_CHAT_LOGIN_INFO:
@@ -98,7 +98,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
                     LoginInfo loginInfo = baseInfo.result;
                     if (!TextUtils.isEmpty(phoneNum)) loginInfo.login_name = phoneNum;
                     mApplication1907.setmLoginInfo(loginInfo);
-                    contractPersenter.getData(ApiConfig.GET_HEADER_INFO);
+                    mContractPresenter.getData(ApiConfig.GET_HEADER_INFO);
                 }else if (baseInfo.errNo == 1300){
                 Intent intent = new Intent(this, ThirdAccoutBindActivity.class);
                 startActivityForResult(intent.putExtra("thirdData",mThirdData),ConstantKey.LOGIN_TO_BIND);
@@ -125,7 +125,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
                 mThirdData.refreshToken = allJson.optString("refresh_token");
                 mThirdData.utime = allJson.optLong("expires_in") * 1000;
                 mThirdData.unionid = allJson.optString("unionid");
-                contractPersenter.getData(ApiConfig.POST_WE_CHAT_LOGIN_INFO, mThirdData);
+                mContractPresenter.getData(ApiConfig.POST_WE_CHAT_LOGIN_INFO, mThirdData);
                 break;
         }
     }
@@ -179,7 +179,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
             switch (errorCode) {
                 case 0:
                     showLog("用户已同意微信登录");
-                    contractPersenter.getData(ApiConfig.GET_WE_CHAT_TOKEN, normalCode);
+                    mContractPresenter.getData(ApiConfig.GET_WE_CHAT_TOKEN, normalCode);
                     break;
                 case -4:
                     showToast("用户拒绝授权");
@@ -209,7 +209,7 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
     @Override
     public void sendVerifyCode(String phoneNum) {
         this.phoneNum = phoneNum;
-        contractPersenter.getData(ApiConfig.SEND_VERIFY, phoneNum);
+        mContractPresenter.getData(ApiConfig.SEND_VERIFY, phoneNum);
     }
 
     @Override
@@ -217,8 +217,8 @@ public class LoginActivity extends BaseMvpActivity<AccountModel> implements Logi
         doPre();
         Log.i("Tag", userName + pwd);
         if (loginView.mCurrentLoginType == loginView.VERIFY_TYPE)
-            contractPersenter.getData(ApiConfig.VERIFY_LOGIN, userName, pwd);
-        else contractPersenter.getData(ApiConfig.ACCOUNT_LOGIN, userName, pwd);
+            mContractPresenter.getData(ApiConfig.VERIFY_LOGIN, userName, pwd);
+        else mContractPresenter.getData(ApiConfig.ACCOUNT_LOGIN, userName, pwd);
     }
 
     @Override

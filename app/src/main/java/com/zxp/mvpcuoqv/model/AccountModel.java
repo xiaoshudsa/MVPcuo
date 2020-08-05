@@ -10,13 +10,12 @@ import com.zxp.frame.Host;
 import com.zxp.frame.IContractModel;
 import com.zxp.frame.IContractPresenter;
 import com.zxp.frame.NetManger;
+
 import com.zxp.frame.PrameHashMap;
 import com.zxp.frame.constants.ConstantKey;
 import com.zxp.frame.util.RsaUtil;
 import com.zxp.mvpcuoqv.Application1907;
 import com.zxp.mvpcuoqv.R;
-
-import java.lang.reflect.Method;
 
 public class AccountModel implements IContractModel {
     private NetManger mManger = NetManger.getInstance();

@@ -76,7 +76,7 @@ public class RegisterPhoneActivity extends BaseMvpActivity<AccountModel> {
             case ApiConfig.NET_CHECK_USERNAME:
                 BaseInfo baseInfo = (BaseInfo) pD[0];
                 if (baseInfo.isSuccess()) {
-                    contractPersenter.getData(ApiConfig.COMPLETE_REGISTER_WITH_SUBJECT, accountContent.getText().toString(), accountSecret.getText().toString(), mPhoneNum);
+                    mContractPresenter.getData(ApiConfig.COMPLETE_REGISTER_WITH_SUBJECT, accountContent.getText().toString(), accountSecret.getText().toString(), mPhoneNum);
                 } else if (baseInfo.errNo == 114) {
                     showToast("该用户名不可用");
                 } else showToast(baseInfo.msg);
@@ -107,7 +107,7 @@ public class RegisterPhoneActivity extends BaseMvpActivity<AccountModel> {
                 break;
             case R.id.next_page:
                 if (CheckUserNameAndPwd.verificationUsername(this, accountContent.getText().toString(), accountSecret.getText().toString()))
-                    contractPersenter.getData(ApiConfig.NET_CHECK_USERNAME, accountContent.getText().toString());
+                    mContractPresenter.getData(ApiConfig.NET_CHECK_USERNAME, accountContent.getText().toString());
                 break;
         }
     }
